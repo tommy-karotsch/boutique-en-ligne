@@ -46,5 +46,6 @@ class ItemModel extends Model
         JOIN rarities   ON rarities.id   = items.rarity_id
         JOIN colors     ON colors.id     = items.color_id
         ");
+        return $stmt->fetchAll();
     }
 }

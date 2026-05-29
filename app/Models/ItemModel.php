@@ -48,4 +48,23 @@ class ItemModel extends Model
         ");
         return $stmt->fetchAll();
     }
+
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->db->prepare("
+        SELECT items.*,
+        categories.name     AS category,
+        rarities.name       AS rarity,
+        rarities.color_code AS rarity_color,
+        colors.name         AS color
+        FROM items
+        JOIN categories ON categories.id = items.category_id
+        JOIN rarities   ON rarities.id   = items.rarity_id
+        JOIN colors     ON colors.id     = items.color_id
+        WHERE items.id = :id
+        ");
+        $stmt->execute([':id' => $id]);
+        $result = $stmt->fetch();
+        return $result === false ? null : $result;
+    }
 }

@@ -22,12 +22,51 @@ class OrderController
 
         $totalPrice = 0;
         $itemModel = new ItemModel();
+
+        $cartItemsFormatted = [];
+
         foreach ($_SESSION['cart'] as $id => $quantity){
             $item = $itemModel->findById($id);
             if($item){
                 $totalPrice += ($item['price'] * $quantity);
+
+                $cartItemsFormatted[] = [
+                    'item_id'       => $item['id'],
+                    'quantity'      => $quantity,
+                    'unit_price'    => $item['price']
+                ];
             }
         }
+
+        $erros = [];
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $address = trim($_POST['delivery_address'] ?? '');
+
+            if(empty($address)){
+                $errors[] = "L'address de livraison est requise.";
+            }
+
+            if(empty($erros)){
+                $orderModel = new OrderModel();
+
+                $orderId = $orderModel->createOrder(
+                    $_SESSION['user_id'],
+                    $totalPrice,
+                    $address,
+                    $cartItemsFormatted
+                );
+
+                if($orderId){
+                    unset($_SESSION['cart']);
+                    header('Location: /boutique-rl/public/?succes=order_placed');
+                    exit;
+                } else{
+                    $errors[] = "Une erreur est survenue lors de la commande.";
+                }
+            }
+        }
+
 
         require_once __DIR__ . '/../Views/order/checkout.php';
     }

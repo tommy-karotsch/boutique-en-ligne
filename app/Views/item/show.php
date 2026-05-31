@@ -21,7 +21,7 @@
     <div style="margin-top: 20px;">
         <a href="/boutique-rl/public/item/index" style="padding: 10px; background: #eee; text-decoration: none; color: black; border-radius: 5px;">Retour à la boutique</a>
         
-        <a href="#" style="padding: 10px; background: #28a745; text-decoration: none; color: white; border-radius: 5px; margin-left: 10px;">Ajouter au panier</a>
+        <a href="/boutique-rl/public/cart/add?id=<?= $item['id'] ?>" style="padding: 10px; background: #28a745; text-decoration: none; color: white; border-radius: 5px; margin-left: 10px;">Ajouter au panier</a>
     </div>
 </div>
 

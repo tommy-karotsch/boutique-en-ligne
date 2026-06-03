@@ -26,7 +26,7 @@ class OrderController
         $cartItemsFormatted = [];
 
         foreach ($_SESSION['cart'] as $id => $quantity){
-            $item = $itemModel->findById($id);
+            $item = $itemModel->findByIdWithRelations($id);
             if($item){
                 $totalPrice += ($item['price'] * $quantity);
 
@@ -85,7 +85,7 @@ class OrderController
         $cartItemsDetails = [];
 
         foreach ($_SESSION['cart'] as $id => $quantity){
-            $item = $itemModel->findById($id);
+            $item = $itemModel->findByIdWithRelations($id);
             if($item){
                 $totalPrice += ($item['price'] * $quantity);
                 $cartItemsDetails[] = [

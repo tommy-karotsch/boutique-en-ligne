@@ -17,7 +17,7 @@ class CartController
         $itemModel = new ItemModel();
 
         foreach ($_SESSION['cart'] as $itemId => $quantity){
-            $item = $itemModel->findById($itemId);
+            $item = $itemModel->findByIdWithRelations($itemId);
             if($item){
                 $item['quantity'] = $quantity;
                 $cartList[] = $item;

@@ -24,7 +24,7 @@ class ItemController
 
         $id = (int)$_GET['id'];
         $itemModel = new ItemModel();
-        $item = $itemModel->findById($id);
+        $item = $itemModel->findByIdWithRelations($id);
 
         if (!$item) {
             echo "Item introuvable";

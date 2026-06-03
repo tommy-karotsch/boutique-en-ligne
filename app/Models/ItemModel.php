@@ -49,7 +49,7 @@ class ItemModel extends Model
         return $stmt->fetchAll();
     }
 
-    public function findById(int $id): ?array
+    public function findByIdWithRelations(int $id): ?array
     {
         $stmt = $this->db->prepare("
         SELECT items.*,

@@ -45,4 +45,47 @@ class OrderModel extends Model
             return false;
         }
     }
+
+    public function getItems(int $orderId): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT oder_items.*, items.name, items.image
+            FROM order_items
+            JOIN items ON order_items.item_id = items_id
+            WHERE order_id.order_id = :order_id
+        ");
+        $stmt->execute([':order_id' => $orderId]);
+        return $stmt->fetchAll();
+    }
+
+    public function findByUser(int $userId): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT * FROM orders
+            WHERE user_id = :user_id
+            ORDER BY ordered_at DESC
+        ");
+        $stmt->execute([
+            ':user_id' => $userId
+            ]);
+            return $stmt->fetchAll();
+    }
+    
+    public function updateStatus(int $id, string $status): bool
+    {
+        $allowed = ['pending', 'shipped', 'delivered', 'cancelled'];
+        if(!in_array($status, $allowed)) return false;
+
+        $stmt = $this->db->prepare("
+            UPDATE orders
+            SET status = :status
+            WHERE id = id
+            ");
+        return $stmt->execute([
+            ':status' => $status,
+            ':id'     => $id
+        ]);
+    }
+
+
 }

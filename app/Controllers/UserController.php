@@ -20,7 +20,7 @@ class UserController
 
             if ($userModel->create($data)) {
                 // Inscription réussie, on redirige vers la page de connexion
-                header('Location: /boutique-rl/public/user/login');
+                header('Location: /boutique-en-ligne/public/user/login');
                 exit;
             } else {
                 $error = "Erreur lors de l'inscription.";
@@ -47,7 +47,7 @@ class UserController
                 $_SESSION['user_role'] = $user['role'];
                 $_SESSION['username'] = $user['username'];
                 
-                header('Location: /boutique-rl/public/');
+                header('Location: /boutique-en-ligne/public/');
                 exit;
             } else {
                 $error = "Identifiants incorrects.";
@@ -61,7 +61,7 @@ class UserController
     {
         // On détruit la session et on redirige vers l'accueil
         session_destroy();
-        header('Location: /boutique-rl/public/');
+        header('Location: /boutique-en-ligne/public/');
         exit;
     }
 }

@@ -21,7 +21,7 @@
         <button type="submit" style="padding: 10px 15px; background: #28a745; color: white; border: none;">Se connecter</button>
     </form>
     
-    <p style="margin-top: 15px;">Pas encore de compte ? <a href="/boutique-rl/public/user/register">S'inscrire</a></p>
+    <p style="margin-top: 15px;">Pas encore de compte ? <a href="/boutique-en-ligne/public/user/register">S'inscrire</a></p>
 </div>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

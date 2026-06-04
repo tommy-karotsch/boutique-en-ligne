@@ -11,7 +11,7 @@ class AdminController{
     
     private function checkAdmin(){
         if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin'){
-            header('Location: /boutique-rl/public/');
+            header('Location: /boutique-en-ligne/public/');
             exit;
         }
     }
@@ -44,7 +44,7 @@ class AdminController{
             $itemModel = new ItemModel();
 
             if($itemModel->create($data)){
-                header('Location: /boutique-rl/public/admin/index');
+                header('Location: /boutique-en-ligne/public/admin/index');
                 exit;
             }
             $error = "Une erreur est survenue lors de l'ajout.";

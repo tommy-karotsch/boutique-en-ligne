@@ -45,7 +45,7 @@ class CartController
             }
         }
 
-        header('Location: /boutique-rl/public/cart/index');
+        header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }
 
@@ -57,7 +57,7 @@ class CartController
             unset($_SESSION['cart'][$id]);
         }
 
-        header('Location: /boutique-rl/public/cart/index');
+        header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }
 }

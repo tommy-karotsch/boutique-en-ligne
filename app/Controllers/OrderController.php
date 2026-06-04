@@ -11,12 +11,12 @@ class OrderController
     {
         if (!isset($_SESSION['user_id']))
             {
-                header('Location: /boutique-rl/public/user/login');
+                header('Location: /boutique-en-ligne/public/user/login');
                 exit;
             }
 
         if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
-            header('Location: /boutique-rl/public/cart/index');
+            header('Location: /boutique-en-ligne/public/cart/index');
             exit;
         }
 
@@ -38,7 +38,7 @@ class OrderController
             }
         }
 
-        $erros = [];
+        $errors = [];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $address = trim($_POST['delivery_address'] ?? '');
@@ -47,7 +47,7 @@ class OrderController
                 $errors[] = "L'address de livraison est requise.";
             }
 
-            if(empty($erros)){
+            if(empty($errors)){
                 $orderModel = new OrderModel();
 
                 $orderId = $orderModel->createOrder(
@@ -59,7 +59,7 @@ class OrderController
 
                 if($orderId){
                     unset($_SESSION['cart']);
-                    header('Location: /boutique-rl/public/?succes=order_placed');
+                    header('Location: /boutique-en-ligne/public/?succes=order_placed');
                     exit;
                 } else{
                     $errors[] = "Une erreur est survenue lors de la commande.";
@@ -74,12 +74,12 @@ class OrderController
     public function confirm()
     {
         if(!isset($_SESSION['user_id']) || empty($_SESSION['cart'])){
-            header('Location: /boutique-rl/public/');
+            header('Location: /boutique-en-ligne/public/');
             exit;
         }
 
         $userId = $_SESSION['user_id'];
-        $address = $_POST['address'] ?? '';
+        $address = $_POST['delivery_address'] ?? '';
         $itemModel = new ItemModel();
         $totalPrice = 0;
         $cartItemsDetails = [];

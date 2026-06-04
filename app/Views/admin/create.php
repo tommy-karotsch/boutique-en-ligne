@@ -28,6 +28,11 @@ require_once __DIR__ . '/../layout/header.php';
     </div>
 
     <div style="margin-bottom: 10px;">
+        <label>Stock :</label><br>
+        <input type="number" name="stock" required style="width: 100%;" required>
+    </div>
+
+    <div style="margin-bottom: 10px;">
         <label>URL de l'image :</label><br>
         <input type="text" name="image" style="width: 100%;" required>
     </div>
@@ -57,6 +62,10 @@ require_once __DIR__ . '/../layout/header.php';
                 <option value="<?= $color['id'] ?>"><?= $color['name'] ?></option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div>
+        <button type="submit" style="margin-top: 20px; padding: 10px 20px;">Ajouter l'item</button>
     </div>
 
 </form>

@@ -10,7 +10,7 @@ require_once __DIR__ . '/../layout/header.php';
     <h2 style="color: #007bff;">Total à payer : <?= htmlspecialchars($totalPrice) ?> Crédits</h2>
 
     <!-- Le formulaire renvoie les données vers order/confirm -->
-    <form method="POST" action="/boutique-rl/public/order/confirm">
+    <form method="POST" action="/boutique-en-ligne/public/order/confirm">
         
         <div style="margin-top: 15px;">
             <label for="delivery_address"><strong>Veuillez indiquer votre adresse de livraison :</strong></label><br>
@@ -18,7 +18,7 @@ require_once __DIR__ . '/../layout/header.php';
         </div>
 
         <div style="margin-top: 20px; text-align: right;">
-            <a href="/boutique-rl/public/cart/index" style="margin-right: 15px; color: #555; text-decoration: none;">Retour au panier</a>
+            <a href="/boutique-en-ligne/public/cart/index" style="margin-right: 15px; color: #555; text-decoration: none;">Retour au panier</a>
             
             <button type="submit" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
                 Confirmer et Payer

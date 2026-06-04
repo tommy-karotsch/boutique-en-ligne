@@ -5,7 +5,7 @@
 
     <?php if (empty($cartList)): ?>
         <p>Votre panier est vide.</p>
-        <a href="/boutique-rl/public/item/index">Retourner à la boutique</a>
+        <a href="/boutique-en-ligne/public/item/index">Retourner à la boutique</a>
     <?php else: ?>
         <table style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead>
@@ -27,7 +27,7 @@
                         <td style="padding: 10px;"><?= htmlspecialchars($item['quantity']) ?></td>
                         <td style="padding: 10px;"><?= htmlspecialchars($item['price'] * $item['quantity']) ?> CR</td>
                         <td style="padding: 10px;">
-                            <a href="/boutique-rl/public/cart/remove?id=<?= $item['id'] ?>" style="color: red; text-decoration: none;">Retirer</a>
+                            <a href="/boutique-en-ligne/public/cart/remove?id=<?= $item['id'] ?>" style="color: red; text-decoration: none;">Retirer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -37,9 +37,9 @@
         <div style="margin-top: 20px; text-align: right;">
             <h2>Total : <?= htmlspecialchars($totalPrice) ?> Crédits</h2>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="#" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">Passer la commande</a>
+                <a href="/boutique-en-ligne/public/order/checkout" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">Passer la commande</a>
             <?php else: ?>
-                <p style="color: #666;"><em>Veuillez <a href="/boutique-rl/public/user/login">vous connecter</a> pour passer commande.</em></p>
+                <p style="color: #666;"><em>Veuillez <a href="/boutique-en-ligne/public/user/login">vous connecter</a> pour passer commande.</em></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

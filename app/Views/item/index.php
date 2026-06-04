@@ -12,7 +12,7 @@ require_once __DIR__ . '/../layout/header.php';
             <p>Catégorie : <?= htmlspecialchars($item['category'] ?? 'N/A') ?></p>
             <p>Couleur : <?= htmlspecialchars($item['color'] ?? 'Standard') ?></p>
             <p><strong>Prix : <?= htmlspecialchars($item['price']) ?> Crédits</strong></p>
-            <a href="/boutique-rl/public/item/show?id=<?= $item['id'] ?>">Voir les détails</a>
+            <a href="/boutique-en-ligne/public/item/show?id=<?= $item['id'] ?>">Voir les détails</a>
         </div>
     <?php endforeach; ?>
 </div>

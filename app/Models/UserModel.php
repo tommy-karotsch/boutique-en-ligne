@@ -34,7 +34,7 @@ class UserModel extends Model
         $bindings = [':id' => $id];
         foreach(['pseudo', 'email', 'address'] as $field){
             if(isset($data[$field])){
-                $updates[] = $field = ":$field";
+                $updates[] = "$field = :$field";
                 $bindings[":$field"] = $data[$field];
             }
         }

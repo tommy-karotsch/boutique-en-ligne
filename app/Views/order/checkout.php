@@ -8,9 +8,16 @@ require_once __DIR__ . '/../layout/header.php';
     <h1>Validation de commande</h1>
 
     <h2 style="color: #007bff;">Total à payer : <?= htmlspecialchars($totalPrice) ?> Crédits</h2>
-
-    <!-- Le formulaire renvoie les données vers order/confirm -->
-    <form method="POST" action="/boutique-en-ligne/public/order/confirm">
+    <?php if(!empty($errors)): ?>
+        <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+    <?php endif; ?>
+            </ul>
+        </div>
+    <form method="POST" action="/boutique-en-ligne/public/order/checkout">
         
         <div style="margin-top: 15px;">
             <label for="delivery_address"><strong>Veuillez indiquer votre adresse de livraison :</strong></label><br>

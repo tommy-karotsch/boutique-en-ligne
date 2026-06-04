@@ -4,112 +4,99 @@ namespace App\Controllers;
 
 use App\Models\ItemModel;
 use App\Models\OrderModel;
+use App\Models\OrderItemModel;
 
 class OrderController
 {
-    public function checkout()
+    public function checkLogin()
     {
-        if (!isset($_SESSION['user_id']))
-            {
-                header('Location: /boutique-en-ligne/public/user/login');
-                exit;
-            }
-
-        if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
-            header('Location: /boutique-en-ligne/public/cart/index');
+        if(!isset($_SESSION['user_id'])){
+            header('Location: /boutique-en-ligne/public/user/login');
             exit;
         }
+    }
 
-        $totalPrice = 0;
-        $itemModel = new ItemModel();
+    public function checkout()
+    {
+        $this->checkLogin();
 
-        $cartItemsFormatted = [];
-
-        foreach ($_SESSION['cart'] as $id => $quantity){
-            $item = $itemModel->findByIdWithRelations($id);
-            if($item){
-                $totalPrice += ($item['price'] * $quantity);
-
-                $cartItemsFormatted[] = [
-                    'item_id'       => $item['id'],
-                    'quantity'      => $quantity,
-                    'unit_price'    => $item['price']
-                ];
-            }
+        if(empty($_SESSION['cart'])){
+            header('Location: /boutique-en-ligne/public/item/index');
+            exit;
         }
 
         $errors = [];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $address = trim($_POST['delivery_address'] ?? '');
-
-            if(empty($address)){
-                $errors[] = "L'address de livraison est requise.";
-            }
-
-            if(empty($errors)){
-                $orderModel = new OrderModel();
-
-                $orderId = $orderModel->createOrder(
-                    $_SESSION['user_id'],
-                    $totalPrice,
-                    $address,
-                    $cartItemsFormatted
-                );
-
-                if($orderId){
-                    unset($_SESSION['cart']);
-                    header('Location: /boutique-en-ligne/public/?succes=order_placed');
-                    exit;
-                } else{
-                    $errors[] = "Une erreur est survenue lors de la commande.";
-                }
-            }
         }
 
+        if(empty($errors)){
+            $orderModel = new OrderModel();
+            $orderItemModel = new OrderItemModel();
+            $itemModel = new ItemModel();
+
+            $orderId = $orderModel->creare([
+                'user_id'           => $_SESSION['user_id'],
+                'delivery_address'  => $address,
+                'total_price'       => $_SESSION['cart_total'] ?? 0,
+                'status'            => 'en attente'
+            ]);
+
+            if ($orderId){
+                foreach($_SESSION['cart'] as $itemId => $product){
+                    $orderItemModel->create([
+                        'order_id'      => $orderId,
+                        'item_id'       => $itemId,
+                        'quantity'      => $product['quantity'],
+                        'price'         => $product['price']
+                    ]);
+
+                    $itemModel->updateStock($itemId, $product['quantity']);
+                }
+
+                unset($_SESSION['cart']);
+                unset($_SESSION['cart_total']);
+
+                header('Location: /boutique-en-ligne/public/order/confirm?id=' . $orderId);
+                exit;
+            } else{
+                $errors[] = "Une erreur est survenue lors de la création de la commande. Veuillez réessayer.";
+            }
+        }
 
         require_once __DIR__ . '/../Views/order/checkout.php';
     }
 
     public function confirm()
     {
-        if(!isset($_SESSION['user_id']) || empty($_SESSION['cart'])){
-            header('Location: /boutique-en-ligne/public/');
+        $this->checkLogin();
+
+        $orderId = $_GET['id'] ?? null;
+        if(!$orderId){
+            header('Location: /boutique-en-ligne/public');
             exit;
         }
 
-        $userId = $_SESSION['user_id'];
-        $address = $_POST['delivery_address'] ?? '';
-        $itemModel = new ItemModel();
-        $totalPrice = 0;
-        $cartItemsDetails = [];
+        $orderModel = new OrderModel();
+        $order = $orderModel->find($orderId);
 
-        foreach ($_SESSION['cart'] as $id => $quantity){
-            $item = $itemModel->findByIdWithRelations($id);
-            if($item){
-                $totalPrice += ($item['price'] * $quantity);
-                $cartItemsDetails[] = [
-                    'item_id' => $id,
-                    'quantity' => $quantity,
-                    'unit_price' => $item['price']
-                ];
-            }
+        if(!$order || $order['user_id'] !== $_SESSION['user_id']){
+          header('Location: /boutique-en-lign/public');
+          exit;  
         }
+
+        require_once __DIr__ . '/../Views/order/confirm.php';
+    }
+
+    public function index()
+    {
+        $this->checkLogin();
 
         $orderModel = new OrderModel();
-        $orderId = $orderModel->createOrder($userId, $totalPrice, $address, $cartItemsDetails);
 
-        if($orderId){
-            unset($_SESSION['cart']);
+        $order = $orderModel->findByUser($_SESSION['user_id']);
 
-            require_once __DIR__ . '/../Views/layout/header.php';
-            echo "<div style='text-align: center; margin-top: 50px;'>";
-            echo "<h1 style='color: green;'>Commande validée avec succès !</h1>";
-            echo "<p>Merci pour votre achat. Voici votre numéro de commande : <strong>#$orderId</strong></p>";
-            echo "</div>";
-            require_once __DIR__ . '/../Views/layout/footer.php';
-        } else{
-            echo "Erreur lors de la création de la commande.";
-        }
+        require_once __DIR__ . '/../Views/order/index.php';
     }
 }

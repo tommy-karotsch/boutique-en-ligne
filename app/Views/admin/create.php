@@ -10,7 +10,7 @@ require_once __DIR__ . '/../layout/header.php';
     <p style="color: red;"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
-<form action="POST" style="max-width: 600px; margin-top: 20px">
+<form method="POST" style="max-width: 600px; margin-top: 20px">
 
     <div style="margin-bottom: 10px;">
         <label>Nom :</label><br>
@@ -19,7 +19,7 @@ require_once __DIR__ . '/../layout/header.php';
 
     <div style="margin-botttom: 10px;">
         <label>Description :</label><br>
-        <textarea name="descritpion" rows="4" style="width: 100%;"></textarea>
+        <textarea name="description" rows="4" style="width: 100%;"></textarea>
     </div>
 
     <div style="margin-bottom: 10px;">
@@ -54,7 +54,7 @@ require_once __DIR__ . '/../layout/header.php';
         <label for="colors_id"></label><br>
         <select name="color_id" required>
             <?php foreach ($colors as $color): ?>
-                <option value="<?= $color['id'] ?>"><?= color['name'] ?></option>
+                <option value="<?= $color['id'] ?>"><?= $color['name'] ?></option>
             <?php endforeach; ?>
         </select>
     </div>

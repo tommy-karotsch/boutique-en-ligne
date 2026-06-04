@@ -49,10 +49,10 @@ class OrderModel extends Model
     public function getItems(int $orderId): array
     {
         $stmt = $this->db->prepare("
-            SELECT oder_items.*, items.name, items.image
+            SELECT order_items.*, items.name, items.image
             FROM order_items
-            JOIN items ON order_items.item_id = items_id
-            WHERE order_id.order_id = :order_id
+            JOIN items ON order_items.item_id = items.id
+            WHERE order_items.order_id = :order_id
         ");
         $stmt->execute([':order_id' => $orderId]);
         return $stmt->fetchAll();
@@ -79,7 +79,7 @@ class OrderModel extends Model
         $stmt = $this->db->prepare("
             UPDATE orders
             SET status = :status
-            WHERE id = id
+            WHERE id = :id
             ");
         return $stmt->execute([
             ':status' => $status,

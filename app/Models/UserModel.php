@@ -31,16 +31,16 @@ class UserModel extends Model
     public function updateProfile(int $id, array $data): bool
     {
         $updates = [];
-        $bindings = [':id' => '$id'];
+        $bindings = [':id' => $id];
         foreach(['pseudo', 'email', 'address'] as $field){
             if(isset($data[$field])){
-                $updates[] = "$field = :$field";
+                $updates[] = $field = ":$field";
                 $bindings[":$field"] = $data[$field];
             }
         }
         if(empty($updates)) return true;
         $stmt = $this->db->prepare("UPDATE users SET " . implode(',',
-        $updates). "WHERE id = :id");
+        $updates). " WHERE id = :id");
         return $stmt->execute($bindings);
     }
 }

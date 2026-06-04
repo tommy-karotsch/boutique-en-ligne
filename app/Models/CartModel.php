@@ -9,12 +9,12 @@ class CartModel extends Model
     public function createCart(int $user_id, $created_at)
     {
         try{
-            $stmt->db->prepare("
+            $stmt = $this->db->prepare("
             INSERT INTO carts (user_id, created_at) VALUES (:user_id, :created_at)
             ");
             $stmt->execute([
                 ':user_id'    => $user_id,
-                ':created_at' => $craeted_at
+                ':created_at' => $created_at
             ]);
             return (int)$this->db->lastInsertId();
         } catch (\Exception $e){

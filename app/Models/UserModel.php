@@ -6,14 +6,6 @@ class UserModel extends Model
 {
     protected string $table = "users";
 
-    public function findByEmail(string $email): ?array
-    {
-        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE email = :email");
-        $stmt->execute([':email' => $email]);
-        $result = $stmt->fetch();
-        return $result === false ? null : $result;
-    }
-
     public function create(array $data): bool
     {
         $stmt = $this->db->prepare("
@@ -42,6 +34,14 @@ class UserModel extends Model
         $stmt = $this->db->prepare("UPDATE users SET " . implode(',',
         $updates). " WHERE id = :id");
         return $stmt->execute($bindings);
+    }
+
+    public function findByEmail(string $email): ?array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE email = :email");
+        $stmt->execute([':email' => $email]);
+        $result = $stmt->fetch();
+        return $result === false ? null : $result;
     }
 }
 

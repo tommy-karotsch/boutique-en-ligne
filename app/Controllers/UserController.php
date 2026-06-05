@@ -8,7 +8,6 @@ class UserController
 {
     public function register()
     {
-        // Si le formulaire est soumis
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userModel = new UserModel();
             
@@ -19,7 +18,6 @@ class UserController
             ];
 
             if ($userModel->create($data)) {
-                // Inscription réussie, on redirige vers la page de connexion
                 header('Location: /boutique-en-ligne/public/user/login');
                 exit;
             } else {
@@ -32,7 +30,6 @@ class UserController
 
     public function login()
     {
-        // Si le formulaire est soumis
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
@@ -40,9 +37,7 @@ class UserController
             $userModel = new UserModel();
             $user = $userModel->findByEmail($email);
 
-            // Vérification de l'utilisateur et du mot de passe haché
             if ($user && password_verify($password, $user['password'])) {
-                // On stocke les infos importantes dans la session
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['role'];
                 $_SESSION['username'] = $user['username'];
@@ -59,7 +54,6 @@ class UserController
 
     public function logout()
     {
-        // On détruit la session et on redirige vers l'accueil
         session_destroy();
         header('Location: /boutique-en-ligne/public/');
         exit;

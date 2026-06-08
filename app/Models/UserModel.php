@@ -24,7 +24,7 @@ class UserModel extends Model
     {
         $updates = [];
         $bindings = [':id' => $id];
-        foreach(['pseudo', 'email', 'address'] as $field){
+        foreach(['username', 'email', 'address'] as $field){
             if(isset($data[$field])){
                 $updates[] = "$field = :$field";
                 $bindings[":$field"] = $data[$field];
@@ -42,6 +42,44 @@ class UserModel extends Model
         $stmt->execute([':email' => $email]);
         $result = $stmt->fetch();
         return $result === false ? null : $result;
+    }
+
+    public function deleteAccount(int $id): bool
+    {
+        try{
+            $this->db->beginTransaction();
+
+            $this->db->prepare("DELETE FROM cart_items WHERE cart_id IN (SELECT id FROM carts WHERE user_id = :id)")
+            ->execute([':id' => $id]);
+
+            $this->db->prepare("DELETE FROM carts WHERE user_id = :id")
+            ->execute([':id' => $id]);
+
+            $this->db->prepare("DELETE FROM order_items WHERE order_id IN (SELECT id FROM orders WHERE user_id = :id)")
+            ->execute([':id' => $id]);
+
+            $this->db->prepare("DELETE FROM orders WHERE user_id = :id")
+            ->execute([':id' => $id]);
+
+            $this->db->prepare("DELETE FROM users WHERE id = :id")
+            ->execute([':id' => $id]);
+
+            $this->db->commit();
+            return true;
+            
+        } catch (\Exception $e){
+            $this->db->rollBack();
+            return false;
+        }
+    }
+
+    public function updatePassword(int $id, string $newPassword): bool
+    {
+        $stmt = $this->db->prepare("UPDATE users SET password = :password WHERE id = :id");
+        return $stmt->execute([
+            ':password' => password_hash($newPassword, PASSWORD_DEFAULT),
+            ':id' => $id
+        ]);
     }
 }
 

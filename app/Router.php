@@ -9,7 +9,7 @@ class Router
         $parts = explode('/', trim($url, '/'));
 
         $controllerName = isset($parts[0]) && $parts[0] !== ''
-            ? ucfirst($parts[0]) . 'Controller'
+            ? str_replace(' ', '', ucwords(str_replace('-', ' ', $parts[0]))). 'Controller'
             : 'HomeController';
 
         $methodName = isset($parts[1]) && $parts[1] !== ''

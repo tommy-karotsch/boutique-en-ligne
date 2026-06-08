@@ -7,17 +7,24 @@ use App\Models\OrderModel;
 
 class OrderController
 {
-    private function checkLogin()
+    public function index()
     {
-        if(!isset($_SESSION['user_id'])){
+        $this->checkLogin();
+
+        $orderModel = new OrderModel();
+        $orders = $orderModel->findByUser($_SESSION['user_id']);
+
+        require_once __DIR__ . '/../Views/order/index.php';
+    }
+
+    public function checkLogin()
+    {
+        if (!isset($_SESSION['user_id'])){
             header('Location: /boutique-en-ligne/public/user/login');
             exit;
         }
     }
 
-    /**
-     * Gestion du tunnel d'achat
-     */
     public function checkout()
     {
         $this->checkLogin();
@@ -27,10 +34,38 @@ class OrderController
             exit;
         }
 
-        $errors = [];
-        $address = '';
+        $itemModel  = new ItemModel();
+        $orderModel = new OrderModel();
+
+        $cartItemsForModel = [];
+        $totalPrice        = 0;
+        $cartPreview       = [];
+        $errors            = [];
+        $address           = '';
+
+        foreach ($_SESSION['cart'] as $itemId => $quantity) {
+
+            $itemData = $itemModel->findById((int)$itemId);
+
+            if ($itemData) {
+                $cartItemsForModel[] = [
+                    'item_id'    => $itemId,
+                    'quantity'   => $quantity,
+                    'unit_price' => $itemData['price']
+                ];
+
+                $totalPrice += ($itemData['price'] * $quantity);
+                $cartPreview[] = [
+                    $itemData['name'],
+                    $quantity,
+                    $itemData['price'],
+                    ($itemData['price'] * $quantity)
+                ];
+            }
+        }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
             $address = trim($_POST['delivery_address'] ?? '');
 
             if(empty($address)){
@@ -38,35 +73,16 @@ class OrderController
             }
 
             if(empty($errors)){
-                $itemModel = new ItemModel();
-                $orderModel = new OrderModel();
-                
-                $cartItemsForModel = [];
-                $totalPrice = 0;
 
-                foreach ($_SESSION['cart'] as $itemId => $quantity) {
-                    $itemData = $itemModel->findById((int)$itemId);
-                    if ($itemData) {
-                        $cartItemsForModel[] = [
-                            'item_id'    => $itemId,
-                            'quantity'   => $quantity,
-                            'unit_price' => $itemData['price']
-                        ];
-                        $totalPrice += ($itemData['price'] * $quantity);
-                    }
-                }
-
-                if (!empty($cartItemsForModel)) {
-                    // CORRECTION : Utilisation de ta méthode native createOrder()
-                    $orderId = $orderModel->createOrder(
+                if(!empty($cartItemsForModel)){
+                 $orderId = $orderModel->createOrder(
                         $_SESSION['user_id'],
                         $totalPrice,
                         $address,
                         $cartItemsForModel
                     );
 
-                    if ($orderId){
-                        // Nettoyage de la session après l'achat réussi
+                    if($orderId){
                         unset($_SESSION['cart']);
                         unset($_SESSION['cart_total']);
 
@@ -90,28 +106,19 @@ class OrderController
 
         $orderId = $_GET['id'] ?? null;
         if(!$orderId){
-            header('Location: /boutique-en-ligne/public/');
+            header('Location: /boutique-en-ligne/public/item/index');
             exit;
         }
 
         $orderModel = new OrderModel();
-        $order = $orderModel->findById((int)$orderId); 
+        $order = $orderModel->findById((int)$orderId);
 
-        if(!$order || $order['user_id'] !== $_SESSION['user_id']){
-            header('Location: /boutique-en-ligne/public/');
+        if(!$order || (int)$order['user_id'] !== (int)$_SESSION['user_id']){
+            header('Location: /boutique-en-ligne/public/item/index');
             exit;
         }
 
         require_once __DIR__ . '/../Views/order/confirm.php';
     }
 
-    public function index()
-    {
-        $this->checkLogin();
-
-        $orderModel = new OrderModel();
-        $orders = $orderModel->findByUser($_SESSION['user_id']);
-
-        require_once __DIR__ . '/../Views/order/index.php';
-    }
 }

@@ -14,9 +14,9 @@ require_once __DIR__ . '/../layout/header.php';
                 <?php foreach ($errors as $error): ?>
                     <li><?= htmlspecialchars($error) ?></li>
                 <?php endforeach; ?>
-    <?php endif; ?>
             </ul>
         </div>
+    <?php endif; ?>
     <form method="POST" action="/boutique-en-ligne/public/order/checkout">
         
         <div style="margin-top: 15px;">

@@ -7,6 +7,7 @@ require_once __DIR__ . '/../layout/header.php';
 <div>
     <h1>Admin Dashboard</h1>
     <a href="/boutique-en-ligne/public/admin/create">Ajouter un item</a>
+    <a href="/boutique-en-ligne/public/admin/orders">Suivi des commandes</a>
 </div>
 
 <table>
@@ -29,13 +30,16 @@ require_once __DIR__ . '/../layout/header.php';
                 <td><?= htmlspecialchars($item['category']) ?></td>
                 <td><?= htmlspecialchars($item['rarity']) ?></td>
                 <td><?= htmlspecialchars($item['price']) ?></td>
-                <td><?= htmlspecialchars($item['stock']) ?></td>
+                <td><?= htmlspecialchars($item['stock']) ?></td>                
                 <td>
                     <a href="/boutique-en-ligne/public/admin/edit?id=<?= $item['id'] ?>">Modifier</a>
-                    <a href="/boutique-en-ligne/public/admin/delete?id=<?= $item['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet item ?')">Supprimer</a>
+                    <form method="POST" action="/boutique-en-ligne/public/admin/delete" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                        <button type="submit" onclick="return confirm('Supprimer ?')">Supprimer</button>
+                    </form>
                 </td>
-            </tr>
-            <?php endforeach; ?>
+                            </tr>
+        <?php endforeach; ?>
     </tbody>
 
 </table>

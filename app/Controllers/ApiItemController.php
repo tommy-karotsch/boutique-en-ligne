@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\ItemModel;
+
+class ApiItemController
+{
+    public function index(): void
+    {
+        header('Content-Type: application/json');
+
+        $itemModel = new ItemModel();
+        $method = $_SERVER['REQUEST_METHOD'];
+        $id = $_GET['id'] ?? null;
+
+        switch($method){
+            case 'GET':
+                if ($id){
+                    $item = $itemModel->findByIdWithRelations((int)$id);
+                    echo json_encode($item);
+                } else {
+                    $items = $itemModel->findAllWithDetails();
+                    echo json_encode($items);
+                }
+                break;
+
+            case 'POST':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $success = $itemModel->create($data);
+                echo json_encode(['success' => $success]);
+                break;
+
+            case 'PUT':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $success = $itemModel->update((int)$id, $data);
+                echo json_encode(['success' => $success]);
+                break;
+
+            case 'DELETE':
+                $success = $itemModel->delete((int)$id);
+                echo json_encode(['success' => $success]);
+                break;
+
+            default:
+                http_response_code(405);
+                echo json_encode(['error' => 'Méthode non supportée']);
+                break;
+        }
+    }
+}

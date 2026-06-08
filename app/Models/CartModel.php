@@ -6,15 +6,14 @@ class CartModel extends Model
 {
     protected string $table = 'carts';
 
-    public function createCart(int $user_id, $created_at)
+    public function createCart(int $user_id): int|false
     {
         try{
             $stmt = $this->db->prepare("
-            INSERT INTO carts (user_id, created_at) VALUES (:user_id, :created_at)
+            INSERT INTO carts (user_id) VALUES (:user_id)
             ");
             $stmt->execute([
                 ':user_id'    => $user_id,
-                ':created_at' => $created_at
             ]);
             return (int)$this->db->lastInsertId();
         } catch (\Exception $e){

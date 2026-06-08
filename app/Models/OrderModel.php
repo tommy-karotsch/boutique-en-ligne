@@ -74,18 +74,40 @@ class OrderModel extends Model
     public function updateStatus(int $id, string $status): bool
     {
         $allowed = ['pending', 'shipped', 'delivered', 'cancelled'];
-        if(!in_array($status, $allowed)) return false;
+
+        if(!in_array($status, $allowed)){
+            return false;
+        }
 
         $stmt = $this->db->prepare("
             UPDATE orders
             SET status = :status
             WHERE id = :id
             ");
+            
         return $stmt->execute([
             ':status' => $status,
             ':id'     => $id
         ]);
     }
 
+    public function findAllForAdmin(?string $status = null): array
+    {
+        $sql = "SELECT orders.*, users.username
+                FROM orders
+                JOIN users ON users.id = orders.user_id";
 
+        $bindings = [];
+
+        if (!empty($status)){
+            $sql .= " WHERE orders.status = :status";
+            $bindings[':status'] = $status;
+        }
+
+        $sql .= " ORDER BY orders.ordered_at DESC ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($bindings);
+        return $stmt->fetchAll();
+    }
 }

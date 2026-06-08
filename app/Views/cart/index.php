@@ -5,7 +5,7 @@
 
     <?php if (empty($cartList)): ?>
         <p>Votre panier est vide.</p>
-        <a href="/boutique-en-ligne/public/item/index">Retourner à la boutique</a>
+        <a href="/boutique-en-ligne/public/">Retourner à la boutique</a>
     <?php else: ?>
         <table style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead>
@@ -20,12 +20,27 @@
             <tbody>
                 <?php foreach ($cartList as $item): ?>
                     <tr style="border-bottom: 1px solid #ccc;">
+                        
                         <td style="padding: 10px;">
                             <strong><?= htmlspecialchars($item['name']) ?></strong>
                         </td>
-                        <td style="padding: 10px;"><?= htmlspecialchars($item['price']) ?> CR</td>
-                        <td style="padding: 10px;"><?= htmlspecialchars($item['quantity']) ?></td>
-                        <td style="padding: 10px;"><?= htmlspecialchars($item['price'] * $item['quantity']) ?> CR</td>
+
+                        <td style="padding: 10px;">
+                            <?= htmlspecialchars($item['price']) ?> CR
+                        </td>
+
+                        <td style="padding: 10px;">
+                            <form method="POST" action="/boutique-en-ligne/public/cart/updateQuantity" style="display: flex; gap: 5px;">
+                                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                                <input type="number" name="quantity" value="<?= htmlspecialchars($item['quantity']) ?>" min="0" style="width: 60px;">
+                                <button type="submit">OK</button>
+                            </form>
+                        </td>
+
+                        <td style="padding: 10px;">
+                            <?= htmlspecialchars($item['price'] * $item['quantity']) ?> CR
+                        </td>
+
                         <td style="padding: 10px;">
                             <a href="/boutique-en-ligne/public/cart/remove?id=<?= $item['id'] ?>" style="color: red; text-decoration: none;">Retirer</a>
                         </td>

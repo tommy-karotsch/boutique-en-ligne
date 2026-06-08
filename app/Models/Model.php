@@ -6,6 +6,7 @@ use Config\Database;
 use PDO;
 
 abstract class Model{
+    
     protected PDO $db;
     protected string $table;
 
@@ -28,7 +29,7 @@ abstract class Model{
         return $stmt->fetch();
     }
 
-    public function findByName(string $name): array
+    public function findByName(string $name): array|false
     {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE name = :name");
         $stmt->execute([':name' => $name]);

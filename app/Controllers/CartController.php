@@ -33,18 +33,18 @@ class CartController
     {
         $id = (int)($_GET['id'] ?? 0);
 
-        if($id > 0){
-            if(!isset($_SESSION['cart'])){
-                $_SESSION['cart'] = [];
-            }
+        if ($id > 0){
+            $itemModel = new ItemModel();
+            $item = $itemModel->findById($id);
 
-            if(isset($_SESSION['cart'][$id])){
-                $_SESSION['cart'][$id] += 1;
-            } else{
-                $_SESSION['cart'][$id] = 1;
+            if($item){
+                $currentQuantity = $_SESSION['cart'][$id] ?? 0;
+
+                if ($currentQuantity < $item['stock']){
+                    $_SESSION['cart'][$id] = $currentQuantity + 1;
+                }
             }
         }
-
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }
@@ -57,6 +57,27 @@ class CartController
             unset($_SESSION['cart'][$id]);
         }
 
+        header('Location: /boutique-en-ligne/public/cart/index');
+        exit;
+    }
+
+    public function updateQuantity()
+    {
+        $id = (int)($_POST['id'] ?? 0);
+        $quantity = (int)($_POST['quantity'] ?? 1);
+
+        if ($id > 0){
+            if ($quantity <= 0){
+                unset($_SESSION['cart'][$id]);
+            } else{
+                $itemModel = new ItemModel();
+                $item = $itemModel->findById($id);
+
+                if ($item && $quantity <= $item['stock']){
+                    $_SESSION['cart'][$id] = $quantity;
+                }
+            }
+        }
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }

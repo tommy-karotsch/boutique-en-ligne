@@ -23,6 +23,11 @@
             <input type="password" name="password" required style="width: 100%;">
         </div>
 
+        <div style="margin-bottom: 10px;">
+            <label>Confirmer le mot de passe :</label><br>
+            <input type="password" name="password_confirm" required style="width: 100%;">
+        </div>
+
         <button type="submit" style="padding: 10px 15px; background: #007bff; color: white; border: none;">S'inscrire</button>
     </form>
 </div>

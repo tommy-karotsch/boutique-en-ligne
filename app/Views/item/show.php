@@ -21,7 +21,11 @@
     <div style="margin-top: 20px;">
         <a href="/boutique-en-ligne/public/item/index" style="padding: 10px; background: #eee; text-decoration: none; color: black; border-radius: 5px;">Retour à la boutique</a>
         
-        <a href="/boutique-en-ligne/public/cart/add?id=<?= $item['id'] ?>" style="padding: 10px; background: #28a745; text-decoration: none; color: white; border-radius: 5px; margin-left: 10px;">Ajouter au panier</a>
+<?php if ($item['stock'] > 0): ?>
+            <a href="/boutique-en-ligne/public/cart/add?id=<?= $item['id'] ?>" style="padding: 10px; background: #28a745; text-decoration: none; color: white; border-radius: 5px; margin-left: 10px;">Ajouter au panier</a>
+        <?php else: ?>
+            <span style="padding: 10px; color: red; margin-left: 10px;">Rupture de stock</span>
+        <?php endif; ?>
     </div>
 </div>
 

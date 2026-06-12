@@ -43,3 +43,5 @@ require_once __DIR__ . '/../layout/header.php';
     </tbody>
 
 </table>
+
+<?php require_once __DIR__ . '/../layout/footer.php'; ?>

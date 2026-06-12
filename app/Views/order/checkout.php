@@ -21,7 +21,7 @@ require_once __DIR__ . '/../layout/header.php';
         
         <div style="margin-top: 15px;">
             <label for="delivery_address"><strong>Veuillez indiquer votre adresse de livraison :</strong></label><br>
-            <textarea name="delivery_address" id="delivery_address" rows="5" required style="width: 100%; margin-top: 5px; padding: 10px;"></textarea>
+            <textarea name="delivery_address" id="delivery_address" rows="5" required style="width: 100%; margin-top: 5px; padding: 10px;"><?= htmlspecialchars($address) ?></textarea>
         </div>
 
         <div style="margin-top: 20px; text-align: right;">

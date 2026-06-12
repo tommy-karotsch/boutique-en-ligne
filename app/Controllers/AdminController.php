@@ -65,11 +65,11 @@ class AdminController{
     public function edit(){
         $this->checkAdmin();
 
-        $id = $_GET['id'] ?? null;
+        $id = (int)($_GET['id'] ?? 0);
 
         $itemModel = new ItemModel();
 
-        $item = $itemModel->findByIdWithRelations((int)$id);
+        $item = $itemModel->findByIdWithRelations($id);
 
         if(!$item){
             header('Location: /boutique-en-ligne/public/admin/index');
@@ -79,14 +79,14 @@ class AdminController{
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             
             $data = [
-                'name'          => $_POST['name'] ?? '',
-                'description'   => $_POST['description'] ?? '',
-                'price'         => $_POST['price'] ?? 0,
-                'stock'         => $_POST['stock'] ?? 0,
-                'image'         => $_POST['image'] ?? '',
-                'category_id'   => $_POST['category_id'] ?? 1,
-                'rarity_id'     => $_POST['rarity_id'] ?? 1,
-                'color_id'      => $_POST['color_id'] ?? 1
+                ':name'          => $_POST['name'] ?? '',
+                ':description'   => $_POST['description'] ?? '',
+                ':price'         => $_POST['price'] ?? 0,
+                ':stock'         => $_POST['stock'] ?? 0,
+                ':image'         => $_POST['image'] ?? '',
+                ':category_id'   => $_POST['category_id'] ?? 1,
+                ':rarity_id'     => $_POST['rarity_id'] ?? 1,
+                ':color_id'      => $_POST['color_id'] ?? 1
             ];
 
             if($itemModel->update($id, $data)){

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\CartModel;
 
 class UserController
 {
@@ -34,11 +35,12 @@ class UserController
             } elseif ( strlen($data['password']) < 8){
                 $error = "Le mot de passe doit contenir au minimum 8 caractères.";
 
-            } elseif ($userModel->findByEmail($data['email'])){
-                $error = "Cet email est déjà utilisé.";
-                
             } elseif ($data['password'] !== ($_POST['password_confirm'] ?? '')){
                 $error = "Les deux mots de passe doivent être identiques.";
+
+            } elseif ($userModel->findByEmail($data['email'])){
+                $error = "Cet email est déjà utilisé.";
+
             } else {
                 if($userModel->create($data)){
                     header('Location: /boutique-en-ligne/public/user/login');
@@ -48,7 +50,6 @@ class UserController
                 }
             }
         }
-        
         require_once __DIR__ . '/../Views/user/register.php';
     }
 
@@ -65,6 +66,20 @@ class UserController
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['role'];
                 $_SESSION['username'] = $user['username'];
+                
+                $cartModel = new CartModel();
+                $cartId = $cartModel->getOrCreateCartId($user['id']);
+
+                $sessionCart = $_SESSION['cart'] ?? [];
+                $dbCart = $cartModel->getQuantities($cartId);
+
+                $merged = $dbCart;
+                foreach ($sessionCart as $itemId => $quantity){
+                    $merged[$itemId] = max($quantity, $dbCart[$itemId] ?? 0);
+                }
+
+                $cartModel->save($cartId, $merged);
+                $_SESSION['cart'] = $merged;
                 
                 header('Location: /boutique-en-ligne/public/');
                 exit;
@@ -97,11 +112,12 @@ class UserController
                 'address'       => $_POST['address'] ?? ''
             ];
 
+            $errors = [];
+
             if ($userModel->updateProfile($_SESSION['user_id'], $data)){
                 $_SESSION['username'] = $data['username'];
-                $success = "Profil mis à jour avec succès.";
             } else {
-                $error = "Une erreur est survenue.";
+                $errors[] = "Une erreur est survenue lors de la mise à jour du profil.";
             }
 
             $password = $_POST['password'] ?? '';
@@ -111,12 +127,16 @@ class UserController
                 $passwordConfirm = $_POST['password_confirm'] ?? '';
 
                 if (strlen($password) < 8){
-                    $error = "Le mot de passe doit contenir au moins 8 caractères.";
+                    $errors[] = "Le mot de passe doit contenir au moins 8 caractères.";
                 } elseif ($password !== $passwordConfirm){
-                    $error = "Les deux mots de passe doivent être identiques.";
+                    $errors[] = "Les deux mots de passe doivent être identiques.";
                 } else {
                     $userModel->updatePassword($_SESSION['user_id'], $password);
                 }
+            }
+
+            if (empty($errors)){
+                $success = "Modifications enregistrées avec succès.";
             }
 
         }

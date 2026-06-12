@@ -1,0 +1,139 @@
+<mxfile host="65bd71144e">
+    <diagram name="Outils du projet" id="outils-projet">
+        <mxGraphModel dx="3269" dy="953" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="table" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fillColor=default;strokeColor=default;strokeWidth=2;perimeterSpacing=0;rounded=1;fontColor=light-dark(#000000,#FFFFFF);" parent="1" vertex="1">
+                    <mxGeometry x="-300" y="310" width="1020" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="rowH" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#2d3e50;strokeColor=#1f2933;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;fontColor=#ffffff;" parent="table" vertex="1">
+                    <mxGeometry width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="hC1" value="Outil" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#2d3e50;fontColor=#ffffff;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="rowH" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="hC2" value="Point fort" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#2d3e50;fontColor=#ffffff;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="rowH" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="hC3" value="Justification principale" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#2d3e50;fontColor=#ffffff;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="rowH" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#ffffff;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="40" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1c1" value="VS Code" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r1" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r1c2" value="Léger et extensible" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r1" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r1c3" value="Code front et back dans un seul environnement gratuit, configurable via extensions" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r1" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#f7f9fb;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="80" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2c1" value="Draw.io (VS Code)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r2" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r2c2" value="Versionnable dans Git" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r2" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r2c3" value="MCD / MLD / MPD en XML, stockés avec le projet sans cloud externe" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r2" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#ffffff;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="120" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3c1" value="Trello" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r3" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r3c2" value="Kanban visuel" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r3" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r3c3" value="Suivi des tâches simple et immédiat, adapté à un projet solo" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r3" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r4" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#f7f9fb;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="160" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4c1" value="GitHub" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r4" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r4c2" value="Sauvegarde + historique" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r4" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r4c3" value="Code hébergé à distance, progression traçable et visible par un recruteur" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r4" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r5" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#ffffff;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="200" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5c1" value="Excel" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r5" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r5c2" value="Calculs automatiques" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r5" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r5c3" value="Tableaux qui se recalculent seuls (dictionnaire de données, planning, budget)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r5" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r6" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=#f7f9fb;strokeColor=#cccccc;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;portConstraint=eastwest;" parent="table" vertex="1">
+                    <mxGeometry y="240" width="1020" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6c1" value="Figma" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#eef2f7;fontStyle=1;align=center;verticalAlign=middle;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r6" vertex="1">
+                    <mxGeometry width="180" height="40" as="geometry">
+                        <mxRectangle width="180" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r6c2" value="Maquettes interactives" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r6" vertex="1">
+                    <mxGeometry x="180" width="280" height="40" as="geometry">
+                        <mxRectangle width="280" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r6c3" value="Valider l&#39;UX et la navigation avant de coder, design vectoriel spécialisé web/mobile" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=8;top=0;left=0;bottom=0;right=0;pointerEvents=1;" parent="r6" vertex="1">
+                    <mxGeometry x="460" width="560" height="40" as="geometry">
+                        <mxRectangle width="560" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

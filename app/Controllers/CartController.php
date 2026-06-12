@@ -3,9 +3,23 @@
 namespace App\Controllers;
 
 use App\Models\ItemModel;
+use App\Models\CartModel;
 
 class CartController
 {
+
+    private function persistCart(): void
+    {
+        if(!isset($_SESSION['user_id']))
+        {
+            return;
+        }
+
+        $cartModel = new CartModel();
+        $cartId = $cartModel->getOrCreateCartId($_SESSION['user_id']);
+        $cartModel->save($cartId, $_SESSION['cart'] ?? []);
+    }
+
     public function index()
     {
         if(!isset($_SESSION['cart']) || empty ($_SESSION['cart'])){
@@ -45,6 +59,8 @@ class CartController
                 }
             }
         }
+
+        $this->persistCart();
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }
@@ -57,6 +73,7 @@ class CartController
             unset($_SESSION['cart'][$id]);
         }
 
+        $this->persistCart();
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }
@@ -78,6 +95,7 @@ class CartController
                 }
             }
         }
+        $this->persistCart();
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;
     }

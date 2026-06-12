@@ -7,8 +7,10 @@
         <p style="color: green;"><?= htmlspecialchars($success) ?></p>
     <?php endif; ?>
 
-    <?php if (isset($error)): ?>
-        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+    <?php if (!empty($errors)): ?>
+        <?php foreach ($errors as $error): ?>
+            <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+        <?php endforeach; ?>
     <?php endif; ?>
 
     <form method="POST" action="/boutique-en-ligne/public/user/profile">

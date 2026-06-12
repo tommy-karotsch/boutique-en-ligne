@@ -19,13 +19,29 @@ async function loadItems(){
             carte.style.padding = '10px';
             carte.style.width = '250px';
 
-            carte.innerHTML = `
-            <h2>${item.name}</h2>
-            <p>Catégorie : ${item.category ?? 'N/A'}</p>
-            <p>Couleur : ${item.color ?? 'Standard'}</p>
-            <p><strong>Prix : ${item.price} Crédits</strong></p>
-            <a href="/boutique-en-ligne/public/item/show?id=${item.id}">Voir les détails</a>
-            `;
+            const titre = document.createElement('h2');
+            titre.textContent = item.name;
+
+            const categorie = document.createElement('p');
+            categorie.textContent = 'Catégorie : ' + (item.category ?? 'N/A');
+
+            const couleur = document.createElement('p');
+            couleur.textContent = 'Couleur : ' + (item.color ?? 'Standard');
+
+            const prix = document.createElement('p');
+            const prixFort = document.createElement('strong');
+            prixFort.textContent = 'Prix : ' + item.price + ' Crédits';
+            prix.appendChild(prixFort);
+
+            const lien = document.createElement('a');
+            lien.href = '/boutique-en-ligne/public/item/show?id=' + encodeURIComponent(item.id);
+            lien.textContent = 'Voir les détails';
+
+            carte.appendChild(titre);
+            carte.appendChild(categorie);
+            carte.appendChild(couleur);
+            carte.appendChild(prix);
+            carte.appendChild(lien);
 
             conteneur.appendChild(carte);
         });

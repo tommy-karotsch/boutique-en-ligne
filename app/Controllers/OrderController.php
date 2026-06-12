@@ -17,7 +17,7 @@ class OrderController
         require_once __DIR__ . '/../Views/order/index.php';
     }
 
-    public function checkLogin()
+    private function checkLogin()
     {
         if (!isset($_SESSION['user_id'])){
             header('Location: /boutique-en-ligne/public/user/login');
@@ -83,6 +83,10 @@ class OrderController
                     );
 
                     if($orderId){
+                        $cartModel = new CartModel();
+                        $cartId = $cartModel->getOrCreateCartId($_SESSION['user_id']);
+                        $cartModel->clear($cartId);
+
                         unset($_SESSION['cart']);
                         unset($_SESSION['cart_total']);
 

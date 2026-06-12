@@ -12,6 +12,13 @@ class ApiItemController
 
         $itemModel = new ItemModel();
         $method = $_SERVER['REQUEST_METHOD'];
+        if (in_array($method, ['POST', 'PUT', 'DELETE'])){
+            if(!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin'){
+                http_response_code(403);
+                echo json_encode(['error' => 'Accès interdit']);
+                return;
+            }
+        }
         $id = $_GET['id'] ?? null;
 
         switch($method){

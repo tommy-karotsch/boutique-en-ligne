@@ -12,12 +12,16 @@ class ItemModel extends Model
         INSERT INTO items(name, description, price, stock, image, category_id, rarity_id, color_id)
         VALUES (:name, :description, :price, :stock, :image, :category_id, :rarity_id, :color_id)
         ");
-        return $stmt->execute($data);
+        
+        $bindings = [];
+        foreach($data as $key => $value){
+            $bindings[':' . $key] = $value;
+        }
+        return $stmt->execute($bindings);
     }
 
     public function update(int $id, array $data): bool
     {
-        $data[':id'] = $id;
         $stmt = $this->db->prepare("
         UPDATE items
         SET name            = :name,
@@ -30,7 +34,12 @@ class ItemModel extends Model
             color_id        = :color_id
         WHERE id = :id
     ");
-    return $stmt->execute($data);
+
+    $bindings = [':id' => $id];
+    foreach($data as $key => $value){
+        $bindings[':' . $key] = $value;
+    }
+    return $stmt->execute($bindings);
     }
 
     public function findAllWithDetails(): array

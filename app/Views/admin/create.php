@@ -3,65 +3,65 @@
 <h1>Ajouter un nouvel item</h1>
 
 <?php if(isset($error)): ?>
-    <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+    <p class="form__error"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
 <form method="POST" style="max-width: 600px; margin-top: 20px">
 
-    <div style="margin-bottom: 10px;">
-        <label>Nom :</label><br>
-        <input type="text" name="name" style="width: 100%;" required>
+    <div class="form__group">
+        <label class="form__label">Nom :</label>
+        <input type="text" name="name" class="form__input" required>
     </div>
 
-    <div style="margin-bottom: 10px;">
-        <label>Description :</label><br>
-        <textarea name="description" rows="4" style="width: 100%;"></textarea>
+    <div class="form__group">
+        <label class="form__label">Description :</label>
+        <textarea name="description" rows="4" class="form__input"></textarea>
     </div>
 
-    <div style="margin-bottom: 10px;">
-        <label>Prix (en Crédits) :</label><br>
-        <input type="number" name="price" style="width: 100%;" required>
+    <div class="form__group">
+        <label class="form__label">Prix (en Crédits) :</label>
+        <input type="number" name="price" class="form__input" required>
     </div>
 
-    <div style="margin-bottom: 10px;">
-        <label>Stock :</label><br>
-        <input type="number" name="stock" style="width: 100%;" required>
+    <div class="form__group">
+        <label class="form__label">Stock :</label>
+        <input type="number" name="stock" class="form__input" required>
     </div>
 
-    <div style="margin-bottom: 10px;">
-        <label>URL de l'image :</label><br>
-        <input type="text" name="image" style="width: 100%;">
+    <div class="form__group">
+        <label class="form__label">URL de l'image :</label>
+        <input type="text" name="image" class="form__input">
     </div>
 
-    <div>
-        <label>Catégorie : </label><br>
-        <select name="category_id" required>
+    <div class="form__group">
+        <label class="form__label">Catégorie : </label>
+        <select class="form__input" name="category_id" required>
             <?php foreach ($categories as $category): ?>
                 <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['name']) ?></option>
             <?php endforeach; ?>    
         </select>
     </div>
 
-    <div>
-        <label>Rareté : </label><br>
-        <select name="rarity_id" required>
+    <div class="form__group">
+        <label class="form__label">Rareté : </label>
+        <select class="form__input" name="rarity_id" required>
             <?php foreach ($rarities as $rarity): ?>
                 <option value="<?= htmlspecialchars($rarity['id']) ?>"><?= htmlspecialchars($rarity['name']) ?></option>
             <?php endforeach; ?>
         </select>
     </div>
 
-    <div>
-        <label>Couleur : </label><br>
-        <select name="color_id" required>
+    <div class="form__group">
+        <label class="form__label">Couleur : </label>
+        <select class="form__input" name="color_id" required>
             <?php foreach ($colors as $color): ?>
                 <option value="<?= htmlspecialchars($color['id']) ?>"><?= htmlspecialchars($color['name']) ?></option>
             <?php endforeach; ?>
         </select>
     </div>
 
-    <div>
-        <button type="submit" style="margin-top: 20px; padding: 10px 20px;">Ajouter l'item</button>
+    <div class="form__group">
+        <button type="submit" class="btn">Ajouter l'item</button>
     </div>
 
 </form>

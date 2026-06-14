@@ -15,36 +15,21 @@ async function loadItems(){
 
         items.forEach(item =>{
             const carte = document.createElement('div');
-            carte.style.border = ' 2px solid ' + (item.rarity_color || '#000');
-            carte.style.padding = '10px';
-            carte.style.width = '250px';
+            carte.className = 'item-card';
+            carte.style.borderColor = item.rarity_color || '#000';
 
-            const titre = document.createElement('h2');
-            titre.textContent = item.name;
-
-            const categorie = document.createElement('p');
-            categorie.textContent = 'Catégorie : ' + (item.category ?? 'N/A');
-
-            const couleur = document.createElement('p');
-            couleur.textContent = 'Couleur : ' + (item.color ?? 'Standard');
-
-            const prix = document.createElement('p');
-            const prixFort = document.createElement('strong');
-            prixFort.textContent = 'Prix : ' + item.price + ' Crédits';
-            prix.appendChild(prixFort);
-
-            const lien = document.createElement('a');
-            lien.href = '/boutique-en-ligne/public/item/show?id=' + encodeURIComponent(item.id);
-            lien.textContent = 'Voir les détails';
-
-            carte.appendChild(titre);
-            carte.appendChild(categorie);
-            carte.appendChild(couleur);
-            carte.appendChild(prix);
-            carte.appendChild(lien);
+            carte.innerHTML = `
+            <h2 class="item-card__name">${item.name}</h2>
+            <p class="item-card__info">Catégorie : ${item.category ?? 'N/A'}</p>
+            <p class="item-card__info">Couleur : ${item.color ?? 'Standard'}</p>
+            <p class="item-card__price">${item.price} Crédits</p>
+            <a href="/boutique-en-ligne/public/item/show?id=${item.id}" class="item-card__link">Voir les détails</a>
+            `;
 
             conteneur.appendChild(carte);
         });
+
+        
     } catch(error){
         conteneur.innerHTML = '<p>Impossible de charger les items.</p>';
         console.error("Erreur :", error.message);

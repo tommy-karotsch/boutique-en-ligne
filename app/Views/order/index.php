@@ -7,7 +7,7 @@
         <p>Vous n'avez pas encore de commande.</p>
         <a href="/boutique-en-ligne/public/item/index">Retourner à la boutique</a>
     <?php else: ?>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Numéro</th>

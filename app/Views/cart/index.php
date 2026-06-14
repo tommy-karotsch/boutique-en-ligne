@@ -7,54 +7,54 @@
         <p>Votre panier est vide.</p>
         <a href="/boutique-en-ligne/public/">Retourner à la boutique</a>
     <?php else: ?>
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <table class="table">
             <thead>
-                <tr style="border-bottom: 2px solid #333;">
-                    <th style="padding: 10px;">Article</th>
-                    <th style="padding: 10px;">Prix Unitaire</th>
-                    <th style="padding: 10px;">Quantité</th>
-                    <th style="padding: 10px;">Total</th>
-                    <th style="padding: 10px;">Action</th>
+                <tr>
+                    <th>Article</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($cartList as $item): ?>
-                    <tr style="border-bottom: 1px solid #ccc;">
+                    <tr>
                         
-                        <td style="padding: 10px;">
+                        <td>
                             <strong><?= htmlspecialchars($item['name']) ?></strong>
                         </td>
 
-                        <td style="padding: 10px;">
+                        <td>
                             <?= htmlspecialchars($item['price']) ?> CR
                         </td>
 
-                        <td style="padding: 10px;">
-                            <form method="POST" action="/boutique-en-ligne/public/cart/updateQuantity" style="display: flex; gap: 5px;">
+                        <td>
+                            <form method="POST" action="/boutique-en-ligne/public/cart/updateQuantity">
                                 <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                <input type="number" name="quantity" value="<?= htmlspecialchars($item['quantity']) ?>" min="0" style="width: 60px;">
-                                <button type="submit">OK</button>
+                                <input type="number" name="quantity" value="<?= htmlspecialchars($item['quantity']) ?>" min="0">
+                                <button type="submit" class="btn">OK</button>
                             </form>
                         </td>
 
-                        <td style="padding: 10px;">
+                        <td>
                             <?= htmlspecialchars($item['price'] * $item['quantity']) ?> CR
                         </td>
 
-                        <td style="padding: 10px;">
-                            <a href="/boutique-en-ligne/public/cart/remove?id=<?= $item['id'] ?>" style="color: red; text-decoration: none;">Retirer</a>
+                        <td>
+                            <a href="/boutique-en-ligne/public/cart/remove?id=<?= $item['id'] ?>" class="btn btn--danger">Retirer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
 
-        <div style="margin-top: 20px; text-align: right;">
+        <div>
             <h2>Total : <?= htmlspecialchars($totalPrice) ?> Crédits</h2>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="/boutique-en-ligne/public/order/checkout" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">Passer la commande</a>
+                <a href="/boutique-en-ligne/public/order/checkout" class="btn">Passer la commande</a>
             <?php else: ?>
-                <p style="color: #666;"><em>Veuillez <a href="/boutique-en-ligne/public/user/login">vous connecter</a> pour passer commande.</em></p>
+                <p><em>Veuillez <a href="/boutique-en-ligne/public/user/login">vous connecter</a> pour passer commande.</em></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

@@ -2,7 +2,7 @@
 
 <h1>Suivi des commandes</h1>
 
-<form method="GET" action="/boutique-en-ligne/public/admin/orders" style="margin-bottom: 20px;">
+<form method="GET" action="/boutique-en-ligne/public/admin/orders">
     <select name="status">
         <option value="">Tous les status</option>
         <option value="pending"   <?= ($_GET['status'] ?? '') === 'pending' ? 'selected' : '' ?>>En attente</option>
@@ -13,7 +13,7 @@
     <button type="submit">Filtrer</button>
 </form>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>N°</th>
@@ -33,7 +33,7 @@
                 <td><?= htmlspecialchars($order['total']) ?></td>
                 <td><?= htmlspecialchars($order['status']) ?></td>
                 <td>
-                    <form method="POST" action="/boutique-en-ligne/public/admin/updateOrderStatus" style="display: flex; gap: 5px;">
+                    <form method="POST" action="/boutique-en-ligne/public/admin/updateOrderStatus">
                         <input type="hidden" name="id" value="<?= $order['id'] ?>">
                         <select name="status">
                             <option value="pending"   <?= ($order['status'] ?? '') === 'pending' ? 'selected' : '' ?>>En attente</option>

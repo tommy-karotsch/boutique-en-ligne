@@ -10,7 +10,7 @@ require_once __DIR__ . '/../layout/header.php';
     <a href="/boutique-en-ligne/public/admin/orders">Suivi des commandes</a>
 </div>
 
-<table>
+<table class="table">
     
     <thead>
         <tr>
@@ -32,16 +32,15 @@ require_once __DIR__ . '/../layout/header.php';
                 <td><?= htmlspecialchars($item['price']) ?></td>
                 <td><?= htmlspecialchars($item['stock']) ?></td>                
                 <td>
-                    <a href="/boutique-en-ligne/public/admin/edit?id=<?= $item['id'] ?>">Modifier</a>
-                    <form method="POST" action="/boutique-en-ligne/public/admin/delete" style="display:inline;">
+                    <a href="/boutique-en-ligne/public/admin/edit?id=<?= $item['id'] ?>" class="btn">Modifier</a>
+                    <form method="POST" action="/boutique-en-ligne/public/admin/delete">
                         <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit" onclick="return confirm('Supprimer ?')">Supprimer</button>
+                        <button type="submit" class="btn btn--danger" onclick="return confirm('Supprimer ?')">Supprimer</button>
                     </form>
                 </td>
-                            </tr>
+            </tr>
         <?php endforeach; ?>
     </tbody>
-
 </table>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

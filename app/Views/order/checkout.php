@@ -27,9 +27,7 @@ require_once __DIR__ . '/../layout/header.php';
         <div style="margin-top: 20px; text-align: right;">
             <a href="/boutique-en-ligne/public/cart/index" style="margin-right: 15px; color: #555; text-decoration: none;">Retour au panier</a>
             
-            <button type="submit" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
-                Confirmer et Payer
-            </button>
+            <button type="submit" class="btn">Confirmer et Payer</button>
         </div>
     </form>
 </div>

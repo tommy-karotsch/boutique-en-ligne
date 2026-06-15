@@ -10,6 +10,30 @@ require_once __DIR__ . '/../layout/header.php';
     <a href="/boutique-en-ligne/public/admin/orders">Suivi des commandes</a>
 </div>
 
+
+<section class="dashboard">
+    <div class="dashboard__card">
+        <span class="dashboard__number"><?= htmlspecialchars($nbOrders) ?></span>
+        <span class="dashboard__label">Commandes</span>
+    </div>
+    <div class="dashboard__card">
+        <span class="dashboard__number"><?= htmlspecialchars(count($items)) ?></span>
+        <span class="dashboard__label">Items au catalogue</span>
+    </div>
+</section>
+
+<h2>Produits récemment ajoutés</h2>
+<ul class="recent-list">
+    <?php foreach ($recentItems as $recent): ?>
+        <li>
+            <strong><?= htmlspecialchars($recent['name']) ?></strong>
+            - <?= htmlspecialchars($recent['category']) ?>
+            (<?= htmlspecialchars($recent['price']) ?> Crédits)
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+
 <table class="table">
     
     <thead>

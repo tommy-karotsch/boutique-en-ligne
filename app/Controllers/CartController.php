@@ -95,6 +95,7 @@ class CartController
                 }
             }
         }
+
         $this->persistCart();
         header('Location: /boutique-en-ligne/public/cart/index');
         exit;

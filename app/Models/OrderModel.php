@@ -110,4 +110,11 @@ class OrderModel extends Model
         $stmt->execute($bindings);
         return $stmt->fetchAll();
     }
+
+
+    public function countAll(): int
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) FROM orders");
+        return (int)$stmt->fetchColumn();
+    }
 }

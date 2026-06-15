@@ -21,6 +21,11 @@ class AdminController{
         $this->checkAdmin();
 
         $itemModel = new ItemModel();
+        $orderModel = new OrderModel();
+
+        $nbOrders = $orderModel->countAll();
+        $recentItems = $itemModel->findRecent(5);
+
         $items = $itemModel->findAllWithDetails();
 
         require_once __DIR__ . '/../Views/admin/index.php';

@@ -333,3 +333,39 @@ a {
   font-weight: bold;
   align-self: center;
 }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media (min-width: 768px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.dashboard__card {
+  background-color: #242424;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+}
+.dashboard__number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #F39C12;
+}
+.dashboard__label {
+  color: #B0B0B0;
+}
+
+.recent-list {
+  list-style: none;
+  margin-bottom: 32px;
+}
+.recent-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}

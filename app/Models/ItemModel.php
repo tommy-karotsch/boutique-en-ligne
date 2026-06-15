@@ -167,6 +167,20 @@ class ItemModel extends Model
         $stmt->execute($bindings);
         return $stmt->fetchAll();
     }
+
+    public function findRecent(int $limit = 5): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT items.*, categories.name AS category
+            FROM items
+            JOIN categories ON categories.id = items.category_id
+            ORDER BY items.id DESC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 
 

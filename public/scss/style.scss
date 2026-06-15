@@ -387,3 +387,42 @@ a{
         align-self: center;
     }
 }
+
+.dashboard{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $espacement;
+    margin: $espacement 0;
+
+    @include media-up($tablette){
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__card{
+        background-color: $fond-carte;
+        border-radius: $radius;
+        padding: $espacement * 1.5;
+        text-align: center;
+    }
+
+    &__number{
+        display: block;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: $orange;
+    }
+
+    &__label{
+        color: $gris-texte;
+    }
+}
+
+.recent-list{
+    list-style: none;
+    margin-bottom: $espacement * 2;
+
+    li{
+        padding: 8px 0;
+        border-bottom: 1px solid #333;
+    }
+}

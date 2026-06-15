@@ -66,9 +66,10 @@ class UserController
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['role'];
                 $_SESSION['username'] = $user['username'];
-                
+
                 $cartModel = new CartModel();
                 $cartId = $cartModel->getOrCreateCartId($user['id']);
+                $_SESSION['cart_id'] = $cartId;
 
                 $sessionCart = $_SESSION['cart'] ?? [];
                 $dbCart = $cartModel->getQuantities($cartId);

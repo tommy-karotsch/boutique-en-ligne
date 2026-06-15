@@ -7,6 +7,28 @@ require_once __DIR__ . '/../layout/header.php';
 <div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
     <h1>Validation de commande</h1>
 
+<h2>Récapitulatif de votre commande</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Article</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+            <th>Sous-total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($cartPreview as $ligne): ?>
+            <tr>
+                <td><?= htmlspecialchars($ligne[0]) ?></td>
+                <td><?= htmlspecialchars($ligne[1]) ?></td>
+                <td><?= htmlspecialchars($ligne[2]) ?> CR</td>
+                <td><?= htmlspecialchars($ligne[3]) ?> CR</td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
     <h2 style="color: #007bff;">Total à payer : <?= htmlspecialchars($totalPrice) ?> Crédits</h2>
     <?php if(!empty($errors)): ?>
         <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
@@ -31,5 +53,6 @@ require_once __DIR__ . '/../layout/header.php';
         </div>
     </form>
 </div>
+
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

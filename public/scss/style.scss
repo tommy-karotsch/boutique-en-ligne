@@ -166,6 +166,11 @@ a{
             background-color: color.adjust(#C0392B, $lightness: -10%);
         }
     }
+
+    &--small{
+        padding: 4px 10px;
+        font-size: 0.85rem;
+    }
 }
 
 
@@ -424,5 +429,209 @@ a{
     li{
         padding: 8px 0;
         border-bottom: 1px solid #333;
+    }
+}
+
+.catalog-admin{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $espacement;
+    margin-top: $espacement;
+
+    @include media-up($tablette){
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__section{
+        background-color: $fond-carte;
+        border-radius: $radius;
+        padding: $espacement;
+
+        h2{
+            color: $orange;
+            margin-bottom: $espacement;
+        }
+    }
+
+    &__list{
+        list-style: none;
+        margin-bottom: $espacement;
+
+        li{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: $espacement;
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+        }
+    }
+
+    &__edit{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+
+        input[type="color"]{
+            width: 36px;
+            height: 30px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    &__count{
+        color: $gris-texte;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    &__name{
+        flex: 1;
+        padding: 6px 8px;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: $radius;
+        color: $blanc;
+        font-size: 1rem;
+
+        &:hover{
+            border-color: #444;
+        }
+
+        &:focus{
+            outline: none;
+            border-color: $bleu-electrique;
+            background-color: $fond-sombre;
+        }
+    }
+
+    &__add{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: $espacement * 2;
+    }
+}
+
+.catalog-admin__header{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-top: $espacement;
+
+    .btn{
+        justify-self: start;
+    }
+
+    h1{
+        grid-column: 2;
+        text-align: center;
+    }
+}
+
+.admin-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: $espacement;
+
+    a{
+        display: flex;
+        justify-content: center;
+        padding: 10px 20px;
+        background-color: darken($bleu-electrique, 20%);
+        color: $blanc;
+        font-weight: bold;
+        border-radius: $radius;
+
+        &:hover{
+            background-color: $orange;
+        }
+    }
+}
+
+.item-card{
+    background-color: $fond-carte;
+    border: 1px solid #333;
+    border-radius: $radius;
+    padding: 14px;
+    transition: transform 0.2s, border-color 0.2s;
+
+
+    &__hover{
+        transform: translateY(-4px);
+        border-color: $orange;
+    }
+
+    &__thumb{
+        position: relative;
+        aspect-ratio: 1 / 1;
+        background-color: $fond-sombre;
+        border-radius: $radius;
+        margin-bottom: 12px;
+        overflow: hidden;
+    }
+
+    &__badge{
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 999px;
+    }
+
+    &__img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__name{
+        color: $blanc;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    &__info{
+        color: $gris-texte;
+        font-size: 0.85rem;
+        margin-top: 2px;
+    }
+
+    &__bottom{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #333;
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    &__price{
+        color: $orange;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    &__add{
+        background-color: $bleu-electrique;
+        color: $fond-sombre;
+        font-weight: 700;
+        font-size: 0.8rem;
+        padding: 8px 14px;
+        border-radius: $radius;
+
+        &:hover{
+            background-color: $orange;
+            color: #fff;
+        }
     }
 }

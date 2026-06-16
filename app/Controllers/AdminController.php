@@ -28,6 +28,9 @@ class AdminController{
 
         $items = $itemModel->findAllWithDetails();
 
+        $error = $_SESSION['admin_error'] ?? null;
+        unset($_SESSION['admin_error']);
+
         require_once __DIR__ . '/../Views/admin/index.php';
     }
 
@@ -120,8 +123,12 @@ class AdminController{
         $id = (int)($_POST['id'] ?? 0);
 
         if($id > 0){
-            $itemModel = new ItemModel();
-            $itemModel->delete($id);
+            try {
+                $itemModel = new ItemModel();
+                $itemModel->delete($id);
+            } catch (\PDOException $e) {
+                $_SESSION['admin_error'] = "Impossible de supprimer cet item : il fait partie d'une commande existante.";
+            }
         }
         header('Location: /boutique-en-ligne/public/admin/index');
         exit;
@@ -156,6 +163,116 @@ class AdminController{
 
 
         header('Location: /boutique-en-ligne/public/admin/orders');
+        exit;
+    }
+
+    public function catalog()
+    {
+        $this->checkAdmin();
+
+        $categories = (new CategoryModel())->findAllWithItemCount('category_id');
+        $rarities = (new RarityModel())->findAllWithItemCount('rarity_id');
+        $colors = (new ColorModel())->findAllWithItemCount('color_id');
+
+        $error = $_SESSION['catalog_error'] ?? null;
+        unset($_SESSION['catalog_error']);
+
+        require_once __DIR__ . '/../Views/admin/catalog.php';
+    }
+
+    public function catalogAdd()
+    {
+        $this->checkAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $type = $_POST['type'] ?? '';
+            $name = $_POST['name'] ?? '';
+
+            if ($name !== ''){
+                switch ($type){
+                    case 'category':
+                        (new CategoryModel())->create(['name' => $name]);
+                        break;
+                    case 'rarity':
+                        (new RarityModel())->create([
+                            'name' => $name,
+                            'color_code' => $_POST['color_code'] ?? '#000000'
+                        ]);
+                        break;
+                    case 'color':
+                        (new ColorModel())->create([
+                            'name' => $name,
+                            'hex_code' => $_POST['hex_code'] ?? '#000000'
+                        ]);
+                        break;
+                }
+            }
+        }
+
+        header('Location: /boutique-en-ligne/public/admin/catalog');
+        exit;
+    }
+
+    public function catalogDelete()
+    {
+        $this->checkAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $type = $_POST['type'] ?? '';
+            $id = (int)($_POST['id'] ?? 0);
+
+            if ($id > 0){
+                try {
+                    switch ($type){
+                        case 'category':
+                            (new CategoryModel())->delete($id);
+                            break;
+                        case 'rarity':
+                            (new RarityModel())->delete($id);
+                            break;
+                        case 'color':
+                            (new ColorModel())->delete($id);
+                            break;
+                    }
+                } catch (\PDOException $e) {
+                    $_SESSION['catalog_error'] = "Impossible de supprimer : cet élément est encore utilisé par des items.";
+                }
+            }
+        }
+        header('Location: /boutique-en-ligne/public/admin/catalog');
+        exit;
+    }
+
+    public function catalogUpdate()
+    {
+        $this->checkAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $type = $_POST['type'] ?? '';
+            $id   = (int)($_POST['id'] ?? 0);
+            $name = $_POST['name'] ?? '';
+
+            if ($id > 0){
+                switch ($type){
+                    case 'category':
+                        (new CategoryModel())->update($id, ['name' => $name]);
+                        break;
+                    case 'rarity':
+                        (new RarityModel())->update($id, [
+                            'name'       => $name,
+                            'color_code' => $_POST['color_code'] ?? '#000000'
+                        ]);
+                        break;
+                    case 'color':
+                        (new ColorModel())->update($id, [
+                            'name'     => $name,
+                            'hex_code' => $_POST['hex_code'] ?? '#000000'
+                        ]);
+                        break;
+                }
+            }
+        }
+        header('Location: /boutique-en-ligne/public/admin/catalog');
         exit;
     }
 }

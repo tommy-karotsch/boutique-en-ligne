@@ -53,12 +53,23 @@ require_once __DIR__ . '/../layout/header.php';
 
 <div class="catalogue">
     <?php foreach ($items as $item): ?>
-        <div class="item-card" style="border-color: <?= htmlspecialchars($item['rarity_color'] ?? '#000') ?>;">
+        <div class="item-card">
+            <div class="item-card__thumb">
+                <span class="item-card__badge" style="background-color: <?= htmlspecialchars($item['rarity_color'] ?? '#000') ?>;">
+                    <?= htmlspecialchars($item['rarity'] ?? '') ?>
+                </span>
+                <?php if (!empty($item['image'])): ?>
+                    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="item-card__img">
+                <?php endif; ?>
+            </div>
+
             <h2 class="item-card__name"><?= htmlspecialchars($item['name']) ?></h2>
-            <p class="item-card__info">Catégorie : <?= htmlspecialchars($item['category']) ?></p>
-            <p class="item-card__info">Couleur : <?= htmlspecialchars($item['color'] ?? 'Standard') ?></p>
-            <p class="item-card__price"><?= htmlspecialchars($item['price']) ?> Crédits</p>
-            <a href="/boutique-en-ligne/public/item/show?id=<?= $item['id'] ?>" class="item-card__link">Voir les détails</a>
+            <p class="item-card__info"><?= htmlspecialchars($item['category'] ?? '') ?> · <?= htmlspecialchars($item['color'] ?? '') ?></p>
+
+            <div class="item-card__bottom">
+                <span class="item-card__price"><?= htmlspecialchars($item['price']) ?> €</span>
+                <a href="/boutique-en-ligne/public/cart/add?id=<?= $item['id'] ?>" class="item-card__add">+ Panier</a>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>

@@ -4,11 +4,16 @@ require_once __DIR__ . '/../layout/header.php';
 
 ?>
 
-<div>
+<div class="admin-actions">
     <h1>Admin Dashboard</h1>
     <a href="/boutique-en-ligne/public/admin/create">Ajouter un item</a>
     <a href="/boutique-en-ligne/public/admin/orders">Suivi des commandes</a>
+    <a href="/boutique-en-ligne/public/admin/catalog">Gérer le catalogue</a>
 </div>
+
+<?php if (isset($error)): ?>
+    <p class="form__error"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
 
 
 <section class="dashboard">

@@ -41,4 +41,15 @@ abstract class Model{
         $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
         return $stmt->execute([':id'=> $id]);
     }
+
+    public function findAllWithItemCount(string $foreignKey): array
+    {
+        $stmt = $this->db->query("
+            SELECT {$this->table}.*, COUNT(items.id) AS item_count
+            FROM {$this->table}
+            LEFT JOIN items ON items.{$foreignKey} = {$this->table}.id
+            GROUP BY {$this->table}.id
+        ");
+        return $stmt->fetchAll();
+    }
 }

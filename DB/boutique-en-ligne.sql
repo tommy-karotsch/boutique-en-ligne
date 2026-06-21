@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mer. 27 mai 2026 à 14:57
+-- Hôte : 127.0.0.1:3306
+-- Généré le : dim. 21 juin 2026 à 22:06
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -32,6 +32,13 @@ CREATE TABLE `carts` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `created_at`) VALUES
+(3, 1, '2026-06-16 03:23:30');
 
 -- --------------------------------------------------------
 
@@ -62,14 +69,14 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Voiture'),
-(2, 'Sticker'),
-(3, 'Roues'),
-(4, 'Boost'),
-(5, 'Traînée'),
-(6, 'Explosion de but'),
-(7, 'Chapeau'),
-(8, 'Antenne');
+(11, 'Châssis'),
+(12, 'Stickers'),
+(14, 'Roues'),
+(15, 'Accélérations Turbo'),
+(16, 'Accessoires'),
+(17, 'Antennes'),
+(18, 'Explosions de but'),
+(19, 'Traînées');
 
 -- --------------------------------------------------------
 
@@ -88,19 +95,20 @@ CREATE TABLE `colors` (
 --
 
 INSERT INTO `colors` (`id`, `name`, `hex_code`) VALUES
-(1, 'Titanium White', '#F5F5F5'),
-(2, 'Noir', '#1A1A1A'),
-(3, 'Pourpre', '#DC143C'),
-(4, 'Bleu ciel', '#87CEEB'),
-(5, 'Cobalt', '#0047AB'),
-(6, 'Vert', '#228B22'),
-(7, 'Citron vert', '#75cd32'),
-(8, 'Safran', '#FFA500'),
-(9, 'Orange', '#FF6600'),
-(10, 'Rose', '#FF69B4'),
-(11, 'Violet', '#8B00FF'),
-(12, 'Gris', '#808080'),
-(13, 'Terre de sienne', '#A0522D');
+(16, 'Pourpre', '#990000'),
+(17, 'Citron vert', '#7fff00'),
+(18, 'Noir', '#0d0d0d'),
+(19, 'Bleu ciel', '#2486be'),
+(20, 'Cobalt', '#1433ff'),
+(21, 'Terre de sienne', '#4c1100'),
+(22, 'Vert profond', '#007f00'),
+(23, 'Violet', '#3f007f'),
+(24, 'Rose', '#cc3399'),
+(25, 'Orange', '#ff4c00'),
+(26, 'Gris', '#3f3f3f'),
+(27, 'Blanc Titane', '#cccccc'),
+(28, 'Safran', '#f6f93e'),
+(29, 'Or', '#d19131');
 
 -- --------------------------------------------------------
 
@@ -119,6 +127,18 @@ CREATE TABLE `items` (
   `rarity_id` int(10) UNSIGNED NOT NULL,
   `color_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `description`, `price`, `stock`, `image`, `category_id`, `rarity_id`, `color_id`) VALUES
+(8, 'Octane', 'La voiture iconique de Rocket League.', 34.99, 10, 'https://static.wikia.nocookie.net/rocketleague/images/3/34/Octane_body_icon_black.png/revision/latest?cb=20190704174735', 11, 15, 18),
+(9, 'Fennec', 'Carrosserie très prisée des joueurs.', 12.50, 25, 'https://static.wikia.nocookie.net/rocketleague/images/7/7b/Fennec_body_icon_black.png/revision/latest?cb=20210724193407', 11, 15, 18),
+(10, 'Dominus', 'Une carrosserie agressive et rapide.', 8.50, 15, 'https://static.wikia.nocookie.net/rocketleague/images/c/c6/Dominus_body_icon_titanium_white.png/revision/latest?cb=20200503040754', 11, 15, 27),
+(11, 'Zomba', 'Roues exotiques avec effet lumineux.', 18.99, 8, 'https://static.wikia.nocookie.net/rocketleague/images/3/3f/Zomba_wheel_icon_titanium_white.png/revision/latest?cb=20161220213733', 14, 16, 27),
+(12, 'Cristiano', 'Roues élégantes et discrètes.', 4.50, 30, 'https://static.wikia.nocookie.net/rocketleague/images/a/a0/Cristiano_wheel_icon.png/revision/latest?cb=20210802144735', 14, 14, 18),
+(13, 'Dueling Dragons', 'Explosion de but spectaculaire.', 29.99, 5, 'https://static.wikia.nocookie.net/rocketleague/images/5/5c/Dueling_Dragons_goal_explosion_icon.png/revision/latest?cb=20171204231354', 18, 17, 24);
 
 -- --------------------------------------------------------
 
@@ -167,14 +187,14 @@ CREATE TABLE `rarities` (
 --
 
 INSERT INTO `rarities` (`id`, `name`, `color_code`) VALUES
-(1, 'Commun', '#B0B0B0'),
-(2, 'Peu commun', '#44C864'),
-(3, 'Rare', '#4F97E1'),
-(4, 'Très rare', '#9E4FE1'),
-(5, 'Importé', '#E14F4F'),
-(6, 'Exotique', '#FFD700'),
-(7, 'Marché noir', '#000000'),
-(8, 'Limité', '#FF8C00');
+(11, 'De base', '#3d3d3d'),
+(12, 'Sport', '#6099b3'),
+(13, 'EX', '#5267a3'),
+(14, 'Élite', '#795ec4'),
+(15, 'Importé', '#cd0e15'),
+(16, 'Exotique', '#d3b936'),
+(17, 'Marché Noir', '#ca15ed'),
+(18, 'Luxe', '#bd5d3d');
 
 -- --------------------------------------------------------
 
@@ -191,6 +211,14 @@ CREATE TABLE `users` (
   `address` text NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `address`, `created_at`) VALUES
+(1, 'TommyK', 'tommykarotsch@gmail.com', '$2y$10$QsnQ.02jlfbJ.pFo313J6.qZ9IJ3IdJB7MLyLGH1tM8yuNY1hmhO.', 'admin', '', '2026-06-08 03:27:25'),
+(2, 'JLNoto', 'tommypsg04@gmail.com', '$2y$10$xHuOCsJYSFa6flBVCWHLwezZGR.DXJ.8yMV3bZxnXjRfpSGaPHyKe', 'user', '', '2026-06-13 19:49:51');
 
 --
 -- Index pour les tables déchargées
@@ -269,55 +297,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT pour la table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `rarities`
 --
 ALTER TABLE `rarities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées

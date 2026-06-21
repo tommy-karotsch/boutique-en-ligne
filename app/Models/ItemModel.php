@@ -6,42 +6,6 @@ class ItemModel extends Model
 {
     protected string $table = "items";
 
-    public function create(array $data): bool
-    {
-        $stmt = $this->db->prepare("
-        INSERT INTO items(name, description, price, stock, image, category_id, rarity_id, color_id)
-        VALUES (:name, :description, :price, :stock, :image, :category_id, :rarity_id, :color_id)
-        ");
-        
-        $bindings = [];
-        foreach($data as $key => $value){
-            $bindings[':' . $key] = $value;
-        }
-        return $stmt->execute($bindings);
-    }
-
-    public function update(int $id, array $data): bool
-    {
-        $stmt = $this->db->prepare("
-        UPDATE items
-        SET name            = :name,
-            description     = :description,
-            price           = :price,
-            stock           = :stock,
-            image           = :image,
-            category_id     = :category_id,
-            rarity_id       = :rarity_id,
-            color_id        = :color_id
-        WHERE id = :id
-    ");
-
-    $bindings = [':id' => $id];
-    foreach($data as $key => $value){
-        $bindings[':' . $key] = $value;
-    }
-    return $stmt->execute($bindings);
-    }
-
     public function findAllWithDetails(): array
     {
         $stmt = $this->db->query("

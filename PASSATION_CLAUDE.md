@@ -1,4 +1,4 @@
-# Passation — Projet boutique-en-ligne (RL.SHOP)
+****# Passation — Projet boutique-en-ligne (RL.SHOP)
 
 > Fichier de contexte pour reprendre le projet dans une nouvelle session Claude (autre PC).
 > À lire en entier au démarrage.
@@ -97,13 +97,44 @@ public/js/catalogue.js          # Fetch API (consomme api-item)
 
 ## 6. CE QU'IL RESTE À FAIRE ⏳
 
+> Mis à jour le 2026-06-30. Méthode : on traite UNE tâche à la fois, Tommy code, Claude vérifie.
+
+### ✅ Déjà fait dans cette session
+- Hero accueil : **2 colonnes + stats dynamiques** (HomeController compte items/catégories/couleurs/raretés via `findAll()`, vue affiche les 4 `<span>`). `.hero` en grille responsive mobile-first.
+- Header **responsive avec menu burger** : bouton `.nav-toggle` (aria-label + aria-expanded), `.nav` cachée mobile / `&--open` toggle, `public/js/header.js` (classList.toggle + sync aria), script chargé dans footer.php. `.nav-link` agrandi (cibles tactiles ~44px).
+- **Lot prix → Crédits** : colonne `items.price` passée en `INT` (repart de zéro). Inputs prix `min=100 max=2500 step=1` (edit + create). Méthode **`ItemModel::update()` ajoutée** (manquait → fatal error corrigée). Affichage `€ → Crédits` partout (dernier `€` retiré de item/index.php ; panier en `CR`).
+
+### ✅ Lot complet « refonte UX/design » — 11/11 TERMINÉ (session 2026-06-30)
+Toute la liste fournie par Tommy est faite et vérifiée dans le code. Migrations BDD appliquées (`items.price` INT ; `orders.game_id` au lieu de `delivery_address`).
+
+| # | Tâche | Détail technique |
+|---|---|---|
+| 1 | Catalogue : sidebar filtres à gauche | `.catalog` 2 colonnes (240px sidebar + 1fr), form dans `<aside class="catalog__filters">` (class `filters`, id `filters`), wrapper `.catalog__products` |
+| 2 | Catalogue : filtrage en direct | `public/js/filters.js` (change → form.submit), bouton « Filtrer » retiré, « Réinitialiser » gardé. Script chargé dans item/index.php |
+| 3 | Header : réordonner nav | Accueil · Catalogue · Bonjour [spacer] Admin · Mon profil · Se déconnecter · Panier (à droite). Spacer dupliqué if/else. « Tous les Items » → « Catalogue » |
+| 4 | Accueil : vrai catalogue | Tri par rareté décroissante. `ItemModel::findTopByRarity(4)` + API `?top=1` (elseif dans ApiItemController GET) + `catalogue.js` URL `api-item?top=1` + section « Items rares » (#catalogue). NB : option « + commandés » (COUNT order_items) possible plus tard |
+| 5 | Profil en 2 pages | `profile()` = résumé (pseudo, email, nbOrders via `count(OrderModel::findByUser)`) → profile.php. `editProfile()` = formulaire POST (infos+mdp, suppression compte) → edit-profile.php. `use OrderModel` ajouté |
+| 6 | Panier : refonte design | État vide `.cart-empty` (+ bouton catalogue), état rempli `.cart` (miniatures, nom cliquable, qty soignée, `.cart__summary`). Unité « Crédits ». style= inline retiré |
+| 7 | Livraison numérique | Colonne `delivery_address` → `game_id` (VARCHAR 100). Champ « Identifiant Rocket League (Epic) » au checkout, affiché dans confirm. OrderModel/OrderController màj |
+| 8 | Admin : boutons Modifier/Supprimer | `.admin-row-actions` (flex alignés), btn--small |
+| 9 | Admin : formulaire ajout item | BUGS corrigés : champ Prix (Crédits) AJOUTÉ (manquait !), Stock en double retiré, `$item['stock']` fautif supprimé, footer ajouté, labels for/id, wrapper .form |
+| 10 | Admin : filtres suivi commande | `.order-filter` stylé, `.status-badge--{statut}` colorés, form statut aligné, Total en Crédits |
+
+**Bugs préexistants corrigés au passage** : prix saisissable (input non borné + `step`), `ItemModel::update()` manquante (fatal error edit), formulaire create cassé (cf. #9).
+
+**Bonus UX** : ajout panier sans quitter la page (`CartController::add` → `HTTP_REFERER`) ; fiche produit cliquable sur toutes les cartes (lien `item/show?id=` sur image+nom, item/index.php ET catalogue.js) ; image fiche bornée (`.product__image` max-width 400px, aspect-ratio 1/1).
+
+**Checkout nettoyé** : `style=` inline retirés, `.checkout` (hint, errors, actions, total).
+
+> ⚠️ Piège encodage rencontré : NE JAMAIS réécrire un .php via PowerShell `Set-Content -Encoding UTF8` → ça crée du double-encodage (`é`→`Ã©`). Toujours éditer via l'éditeur/outil Edit. Si corrompu : `git checkout` du fichier puis réappliquer les modifs.
+
+### ⏳ Reste du CDC (non encore traité)
 | Tâche | CDC | Note |
 |---|---|---|
-| **Design page d'accueil façon maquette** (EN COURS) | — | Tommy a fourni des maquettes HTML (Accueil Desktop/Mobile). On REcrée le design dans SES vues PHP + SON Sass, on ne copie PAS les fichiers HTML (ils utilisent des var CSS externes inexistantes). Étape en cours : **cartes** (badge rareté + image + bouton +Panier) — fait dans item/index.php, Sass `.item-card` enrichi fait. **Reste : répliquer la structure carte dans catalogue.js**, puis hero 2 colonnes + stats, puis catalogue avec sidebar filtres |
-| **RGPD** : page politique de confidentialité + bandeau cookies | 8.3 | les liens footer (#) sont prêts à brancher |
-| **Accessibilité RGAA** : finitions (alt restants, sémantique, navigation clavier) | 4.4 | |
-| **Simulation de paiement** (étape tunnel commande) | 2.1 | rapide |
-| Migrer derniers `style=` inline (checkout.php) | — | optionnel, cohérence |
+| **RGPD** : politique de confidentialité + bandeau cookies | 8.3 | liens footer (#) prêts à brancher |
+| **Accessibilité RGAA** : finitions (alt, sémantique, clavier) | 4.4 | |
+| **Simulation de paiement** (tunnel commande) | 2.1 | rapide |
+| `darken()` déprécié ligne ~640 du .scss | — | remplacer par `color.adjust(... $lightness: -20%)` pour cohérence |
 
 ---
 

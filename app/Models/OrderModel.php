@@ -6,19 +6,19 @@ class OrderModel extends Model
 {
     protected string $table = "orders";
 
-    public function createOrder(int $userId, float $total, string $address, array $cartItems): int|false
+    public function createOrder(int $userId, float $total, string $gameId, array $cartItems): int|false
     {
         try {
             $this->db->beginTransaction();
 
             $stmt = $this->db->prepare("
-                INSERT INTO orders (user_id, total, delivery_address) 
-                VALUES (:user_id, :total, :delivery_address)
+                INSERT INTO orders (user_id, total, game_id)
+                VALUES (:user_id, :total, :game_id)
             ");
             $stmt->execute([
                 ':user_id' => $userId,
                 ':total'   => $total,
-                ':delivery_address' => $address
+                ':game_id' => $gameId
             ]);
 
             $orderId = $this->db->lastInsertId();

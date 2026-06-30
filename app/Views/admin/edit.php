@@ -20,12 +20,12 @@
 
     <div class="form__group">
         <label class="form__label">Prix (en Crédits) :</label>
-        <input type="number" name="price" class="form__input" value="<?= htmlspecialchars($item['price']) ?>" required>
+        <input type="number" name="price" class="form__input" value="<?= htmlspecialchars($item['price']) ?>" min="100" max="2500" step="1" required>
     </div>
 
     <div class="form__group">
         <label class="form__label">Stock :</label>
-        <input type="number" name="stock" class="form__input" value="<?= htmlspecialchars($item['stock']) ?>" required>
+        <input type="number" name="stock" class="form__input" value="<?= htmlspecialchars($item['stock']) ?>" min="0" required>
     </div>
 
     <div class="form__group">

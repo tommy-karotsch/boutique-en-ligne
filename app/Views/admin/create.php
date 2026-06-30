@@ -1,36 +1,37 @@
 <?php require_once __DIR__ . '/../layout/header.php'; ?>
 
+<div class="form">
 <h1>Ajouter un nouvel item</h1>
 
 <?php if(isset($error)): ?>
     <p class="form__error"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
-<form method="POST" style="max-width: 600px; margin-top: 20px">
+<form method="POST">
 
     <div class="form__group">
-        <label class="form__label">Nom :</label>
-        <input type="text" name="name" class="form__input" required>
+        <label class="form__label" for="name">Nom :</label>
+        <input type="text" id="name" name="name" class="form__input" required>
     </div>
 
     <div class="form__group">
-        <label class="form__label">Description :</label>
-        <textarea name="description" rows="4" class="form__input"></textarea>
+        <label class="form__label" for="description">Description :</label>
+        <textarea id="description" name="description" rows="4" class="form__input"></textarea>
     </div>
 
     <div class="form__group">
-        <label class="form__label">Prix (en Crédits) :</label>
-        <input type="number" name="price" class="form__input" required>
+        <label class="form__label" for="price">Prix (en Crédits) :</label>
+        <input type="number" id="price" name="price" class="form__input" min="100" max="2500" step="1" required>
     </div>
 
     <div class="form__group">
-        <label class="form__label">Stock :</label>
-        <input type="number" name="stock" class="form__input" required>
+        <label class="form__label" for="stock">Stock :</label>
+        <input type="number" id="stock" name="stock" class="form__input" min="0" required>
     </div>
 
     <div class="form__group">
-        <label class="form__label">URL de l'image :</label>
-        <input type="text" name="image" class="form__input">
+        <label class="form__label" for="image">URL de l'image :</label>
+        <input type="text" id="image" name="image" class="form__input">
     </div>
 
     <div class="form__group">
@@ -61,7 +62,10 @@
     </div>
 
     <div class="form__group">
-        <button type="submit" class="btn">Ajouter l'item</button>
+        <button type="submit" class="btn btn--primary">Ajouter l'item</button>
     </div>
 
 </form>
+</div>
+
+<?php require_once __DIR__ . '/../layout/footer.php'; ?>

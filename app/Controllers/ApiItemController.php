@@ -26,6 +26,9 @@ class ApiItemController
                 if ($id){
                     $item = $itemModel->findByIdWithRelations((int)$id);
                     echo json_encode($item);
+                } elseif (isset($_GET['top'])) {
+                    $items = $itemModel->findTopByRarity(4);
+                    echo json_encode($items);
                 } else {
                     $items = $itemModel->findAllWithDetails();
                     echo json_encode($items);

@@ -42,7 +42,7 @@ class OrderController
         $totalPrice        = 0;
         $cartPreview       = [];
         $errors            = [];
-        $address           = '';
+        $gameId            = '';
 
         foreach ($_SESSION['cart'] as $itemId => $quantity) {
 
@@ -67,10 +67,10 @@ class OrderController
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-            $address = trim($_POST['delivery_address'] ?? '');
+            $gameId = trim($_POST['game_id'] ?? '');
 
-            if(empty($address)){
-                $errors[] = "L'adresse de livraison est requise pour valider votre commande.";
+            if(empty($gameId)){
+                $errors[] = "Votre identifiant Rocket League est requis pour recevoir vos items.";
             }
 
             if(empty($errors)){
@@ -79,7 +79,7 @@ class OrderController
                  $orderId = $orderModel->createOrder(
                         $_SESSION['user_id'],
                         $totalPrice,
-                        $address,
+                        $gameId,
                         $cartItemsForModel
                     );
 

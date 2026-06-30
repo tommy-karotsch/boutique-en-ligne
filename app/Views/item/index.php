@@ -5,7 +5,10 @@ require_once __DIR__ . '/../layout/header.php';
 
 <h1>Boutique Rocket League</h1>
 
-<form method="GET" action="/boutique-en-ligne/public/item/index" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+<div class="catalog">
+
+    <aside class="catalog__filters">
+    <form method="GET" action="/boutique-en-ligne/public/item/index" class="filters" id="filters">
 
     <select name="category_id">
         <option value="">Toutes les catégories</option>
@@ -45,13 +48,13 @@ require_once __DIR__ . '/../layout/header.php';
         <option value="price_desc" <?= ($_GET['sort'] ?? '') === 'price_desc' ? 'selected' : '' ?>>Prix décroissant</option>
         <option value="rarity" <?= ($_GET['sort'] ?? '') === 'rarity' ? 'selected' : '' ?>>Rareté</option>
     </select>
-
-    <button type="submit">Filtrer</button>
+   
     <a href="/boutique-en-ligne/public/item/index">Réinitialiser</a>
-</form>
+    </form>
+    </aside>
 
-
-<div class="catalogue">
+    <div class="catalog__products">
+    <div class="catalogue">
     <?php foreach ($items as $item): ?>
         <div class="item-card">
             <div class="item-card__thumb">
@@ -59,20 +62,27 @@ require_once __DIR__ . '/../layout/header.php';
                     <?= htmlspecialchars($item['rarity'] ?? '') ?>
                 </span>
                 <?php if (!empty($item['image'])): ?>
-                    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="item-card__img">
+                    <a href="/boutique-en-ligne/public/item/show?id=<?= $item['id'] ?>">
+                        <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="item-card__img">
+                    </a>
                 <?php endif; ?>
             </div>
 
-            <h2 class="item-card__name"><?= htmlspecialchars($item['name']) ?></h2>
+            <h2 class="item-card__name">
+                <a href="/boutique-en-ligne/public/item/show?id=<?= $item['id'] ?>"><?= htmlspecialchars($item['name']) ?></a>
+            </h2>
             <p class="item-card__info"><?= htmlspecialchars($item['category'] ?? '') ?> · <?= htmlspecialchars($item['color'] ?? '') ?></p>
 
             <div class="item-card__bottom">
-                <span class="item-card__price"><?= htmlspecialchars($item['price']) ?> €</span>
+                <span class="item-card__price"><?= htmlspecialchars($item['price']) ?> Crédits</span>
                 <a href="/boutique-en-ligne/public/cart/add?id=<?= $item['id'] ?>" class="item-card__add">+ Panier</a>
             </div>
         </div>
     <?php endforeach; ?>
+    </div>
+    </div>
 </div>
 
+<script src="/boutique-en-ligne/public/js/filters.js"></script>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

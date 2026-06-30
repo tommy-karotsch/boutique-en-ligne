@@ -58,14 +58,16 @@ require_once __DIR__ . '/../layout/header.php';
                 <td><?= htmlspecialchars($item['name']) ?></td>
                 <td><?= htmlspecialchars($item['category']) ?></td>
                 <td><?= htmlspecialchars($item['rarity']) ?></td>
-                <td><?= htmlspecialchars($item['price']) ?></td>
+                <td><?= htmlspecialchars($item['price']) ?> Crédits</td>
                 <td><?= htmlspecialchars($item['stock']) ?></td>                
                 <td>
-                    <a href="/boutique-en-ligne/public/admin/edit?id=<?= $item['id'] ?>" class="btn">Modifier</a>
-                    <form method="POST" action="/boutique-en-ligne/public/admin/delete">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit" class="btn btn--danger" onclick="return confirm('Supprimer ?')">Supprimer</button>
-                    </form>
+                    <div class="admin-row-actions">
+                        <a href="/boutique-en-ligne/public/admin/edit?id=<?= $item['id'] ?>" class="btn btn--small">Modifier</a>
+                        <form method="POST" action="/boutique-en-ligne/public/admin/delete">
+                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                            <button type="submit" class="btn btn--danger btn--small" onclick="return confirm('Supprimer cet item ?')">Supprimer</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -39,6 +39,8 @@
 </div>
 <p class="footer__copy">&copy; 2026 RL.Shop · Projet RNCP 37273 — Développeur Web Fullstack</p>
 </div>
+
+<script src="/boutique-en-ligne/public/js/header.js"></script>
 </footer>
 </body>
 </html>

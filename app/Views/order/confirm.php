@@ -7,7 +7,7 @@
     <ul>
         <li>Numéro de commande :    <strong><?= htmlspecialchars($order['id']) ?></strong></li>
         <li>Total :                 <strong><?= htmlspecialchars($order['total']) ?> Crédits</strong></li>
-        <li>Addresse de livraison : <strong><?= htmlspecialchars($order['delivery_address']) ?></strong></li>
+        <li>Identifiant Rocket League : <strong><?= htmlspecialchars($order['game_id']) ?></strong></li>
         <li>Statut :                <strong><?= htmlspecialchars($order['status']) ?></strong></li>
     </ul>
 

@@ -43,16 +43,33 @@ a{
 }
 
 .nav{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: none;
+    flex-direction: column;
     gap: 12px;
+    margin-top: $espacement;
+
+    &--open{
+        display: flex;
+    }
+
+    @include media-up($tablette){
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 0;
+    }
 }
 
 .nav-link{
+    display: block;
+    padding: 12px $espacement;
+    border-radius: $radius;
     color: $blanc;
 
+
     &:hover{
+        background-color: $fond-sombre;
         color: $orange;
     }
 }
@@ -67,6 +84,19 @@ a{
     @include media-up($tablette){
         display: block;
         flex-grow: 1;
+    }
+}
+
+.nav-toggle{
+    display: block;
+    background: none;
+    border: none;
+    color: $blanc;
+    font-size: 1.8rem;
+    cursor: pointer;
+
+    @include media-up($tablette){
+        display: none;
     }
 }
 
@@ -132,6 +162,34 @@ a{
     }
 }
 
+.catalog{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $espacement * 1.5;
+
+    @include media-up($tablette){
+        grid-template-columns: 240px 1fr;
+        align-items: start;
+    }
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    gap: $espacement;
+    background: $fond-carte;
+    padding: $espacement;
+    border-radius: $radius;
+
+    select{
+        width: 100%;
+        padding: 8px;
+        background: $fond-sombre;
+        color: $blanc;
+        border: 1px solid $gris-texte;
+        border-radius: $radius;
+    }
+}
 
 .btn{
     display: inline-block;
@@ -222,20 +280,51 @@ a{
 }
 
 .hero{
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $espacement * 2;
+    align-items: center;
     padding: 40px $espacement;
     background: linear-gradient(135deg, $fond-carte, $fond-sombre);
     border-radius: $radius;
     margin-bottom: $espacement * 2;
 
     @include media-up($tablette){
+        grid-template-columns: 1fr 1fr;
         padding: 80px $espacement;
+    }
+
+    &__stats{
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $espacement;
+    }
+
+    &__stat{
+        text-align: center;
+        padding: $espacement;
+        background: $fond-sombre;
+        border-radius: $radius;
+    }
+
+    &__stat-number{
+        display: block;
+        font-size: 2rem;
+        color: $bleu-electrique;
+        font-weight: bold;
+    }
+
+    &__stat-label{
+        color: $gris-texte;
+        font-size: 0.9rem;
     }
 
     &__title{
         font-size: 2rem;
         color: $blanc;
-        margin-bottom: 8px;
+        margin-bottom: $espacement;
 
         @include media-up($tablette){
             font-size: 3.5rem;
@@ -353,10 +442,14 @@ a{
     }
 
     &__image{
-        max-width: 100%;
-        height: auto;
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        margin: 0 auto $espacement;
+        background-color: $fond-sombre;
         border-radius: $radius;
-        margin-bottom: $espacement;
     }
 
     &__desc{
@@ -634,4 +727,192 @@ a{
             color: #fff;
         }
     }
+}
+
+
+// ---- Panier ----
+
+.cart-empty{
+    background-color: $fond-carte;
+    border-radius: $radius;
+    padding: $espacement * 3 $espacement;
+    text-align: center;
+    margin-top: $espacement * 2;
+
+    &__text{
+        color: $gris-texte;
+        font-size: 1.2rem;
+        margin-bottom: $espacement * 1.5;
+    }
+}
+
+.cart{
+
+    &__table{
+        width: 100%;
+        margin-bottom: $espacement * 2;
+    }
+
+    &__item{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__thumb{
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        background-color: $fond-sombre;
+        border-radius: $radius;
+        flex-shrink: 0;
+    }
+
+    &__name{
+        color: $blanc;
+        font-weight: 700;
+
+        &:hover{
+            color: $orange;
+        }
+    }
+
+    &__qty-form{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__qty-input{
+        width: 64px;
+        padding: 6px;
+        background-color: $fond-sombre;
+        color: $blanc;
+        border: 1px solid $gris-texte;
+        border-radius: $radius;
+    }
+
+    &__summary{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: $espacement;
+        background-color: $fond-carte;
+        padding: $espacement * 1.5;
+        border-radius: $radius;
+    }
+
+    &__total{
+        color: $blanc;
+        margin: 0;
+    }
+
+    &__notice{
+        color: $gris-texte;
+    }
+}
+
+
+// ---- Checkout ----
+
+.checkout{
+    max-width: 700px;
+
+    &__total{
+        color: $bleu-electrique;
+        margin: $espacement 0;
+    }
+
+    &__errors{
+        background-color: color.adjust($orange, $lightness: -10%);
+        color: $blanc;
+        padding: $espacement;
+        border-radius: $radius;
+        margin-bottom: $espacement;
+
+        ul{
+            margin: 0;
+            padding-left: $espacement * 1.25;
+        }
+    }
+
+    &__hint{
+        display: block;
+        color: $gris-texte;
+        font-size: 0.85rem;
+        margin-top: 6px;
+    }
+
+    &__actions{
+        display: flex;
+        justify-content: flex-end;
+        gap: $espacement;
+        margin-top: $espacement * 1.5;
+    }
+}
+
+
+// ---- Admin : actions & filtres ----
+
+.admin-row-actions{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    form{
+        margin: 0;
+    }
+}
+
+.order-filter{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background-color: $fond-carte;
+    padding: $espacement;
+    border-radius: $radius;
+    margin-bottom: $espacement * 1.5;
+
+    &__label{
+        color: $blanc;
+    }
+
+    &__select{
+        padding: 8px;
+        background-color: $fond-sombre;
+        color: $blanc;
+        border: 1px solid $gris-texte;
+        border-radius: $radius;
+    }
+}
+
+.order-status-form{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0;
+
+    select{
+        padding: 6px;
+        background-color: $fond-sombre;
+        color: $blanc;
+        border: 1px solid $gris-texte;
+        border-radius: $radius;
+    }
+}
+
+.status-badge{
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: $radius;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: $blanc;
+
+    &--pending{   background-color: $orange; }
+    &--shipped{   background-color: $bleu-electrique; color: $fond-sombre; }
+    &--delivered{ background-color: #2ecc71; }
+    &--cancelled{ background-color: #e74c3c; }
 }

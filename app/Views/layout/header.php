@@ -8,20 +8,17 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+        
+        <nav class="nav" id="nav">
             <a href="/boutique-en-ligne/public/" class="nav-link">Accueil</a>
-            <a href="/boutique-en-ligne/public/item/index" class="nav-link">Tous les Items</a>
+            <a href="/boutique-en-ligne/public/item/index" class="nav-link">Catalogue</a>
 
-            <div class="nav-spacer"></div>
-
-            <a href="/boutique-en-ligne/public/cart/index" class="nav-link">
-                Panier (<?= isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0 ?>)
-            </a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 
                 <span class="nav-user">Bonjour, <?= htmlspecialchars($_SESSION['username']) ?> !</span>
 
-
+            <div class="nav-spacer"></div>
 
             <?php if ($_SESSION['user_role'] === 'admin'): ?>
 
@@ -34,10 +31,17 @@
 
             <?php else: ?>
 
+            <div class="nav-spacer"></div>
+
                     <a href="/boutique-en-ligne/public/user/login" class="nav-link">Se connecter</a>
                     <a href="/boutique-en-ligne/public/user/register" class="nav-link">S'inscrire</a>
 
             <?php endif; ?>
+
+            <a href="/boutique-en-ligne/public/cart/index" class="nav-link">
+                Panier (<?= isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0 ?>)
+            </a>
+
         </nav>
     </header>
     <main class="main">

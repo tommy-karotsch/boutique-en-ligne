@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\CartModel;
+use App\Models\OrderModel;
 
 class UserController
 {
@@ -106,11 +107,24 @@ class UserController
         $userModel = new UserModel();
         $user = $userModel->findById($_SESSION['user_id']);
 
+        $orderModel = new OrderModel();
+        $nbOrders = count($orderModel->findByUser($_SESSION['user_id']));
+
+        require_once __DIR__ . '/../Views/user/profile.php';
+    }
+
+    public function editProfile()
+    {
+        $this->checkLogin();
+
+        $userModel = new UserModel();
+        $user = $userModel->findById($_SESSION['user_id']);
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $data = [
-                'username'      => $_POST['username'] ?? '',
-                'email'         => $_POST['email'] ?? '',
-                'address'       => $_POST['address'] ?? ''
+                'username' => $_POST['username'] ?? '',
+                'email'    => $_POST['email'] ?? '',
+                'address'  => $_POST['address'] ?? ''
             ];
 
             $errors = [];
@@ -124,7 +138,6 @@ class UserController
             $password = $_POST['password'] ?? '';
 
             if (!empty($password)){
-
                 $passwordConfirm = $_POST['password_confirm'] ?? '';
 
                 if (strlen($password) < 8){
@@ -139,9 +152,9 @@ class UserController
             if (empty($errors)){
                 $success = "Modifications enregistrées avec succès.";
             }
-
         }
-        require_once __DIR__ . '/../Views/user/profile.php';
+
+        require_once __DIR__ . '/../Views/user/edit-profile.php';
     }
 
     public function delete()

@@ -61,7 +61,8 @@ class CartController
         }
 
         $this->persistCart();
-        header('Location: /boutique-en-ligne/public/cart/index');
+        $retour = $_SERVER['HTTP_REFERER'] ?? '/boutique-en-ligne/public/item/index';
+        header('Location: ' . $retour);
         exit;
     }
 

@@ -145,6 +145,45 @@ class ItemModel extends Model
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function findTopByRarity(int $limit = 4): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT items.*,
+                categories.name     AS category,
+                rarities.name       AS rarity,
+                rarities.color_code AS rarity_color,
+                colors.name         AS color
+            FROM items
+            JOIN categories ON categories.id = items.category_id
+            JOIN rarities   ON rarities.id   = items.rarity_id
+            JOIN colors     ON colors.id     = items.color_id
+            ORDER BY items.rarity_id DESC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $stmt = $this->db->prepare("
+            UPDATE {$this->table}
+            SET name = :name,
+                description = :description,
+                price = :price,
+                stock = :stock,
+                image = :image,
+                category_id = :category_id,
+                rarity_id = :rarity_id,
+                color_id = :color_id
+            WHERE id = :id
+        ");
+
+        $data[':id'] = $id;
+        return $stmt->execute($data);
+    }
 }
 
 
